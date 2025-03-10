@@ -5,45 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>EvoraOS</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <header>
-    <div class="logo"> <span class="evo">Evo</span><span class="raos">raOS</span> </div>
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <div class="logo">
+      <span class="evo">Evo</span><span class="raos">raOS</span>
+    </div>
     <div class="menu-icon" onclick="toggleMenu()">☰</div>
-    <nav id="nav-menu">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="apps.html">Apps</a>
-      <a href="#contact">Contact</a>
-    </nav>
   </header>
 
-  <section class="hero fade-in">
+  <!-- Dropdown Menu -->
+  <nav id="dropdown-menu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="apps.html">Apps</a>
+    <a href="mailto:apps.evoraos@outlook.com">Contact Us</a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
     <h1>Welcome to <span class="gradient-text">EvoraOS</span></h1>
-    <p>Next-generation ai powered applications creator</p>
-    <a href="about.html" class="btn">Learn More</a>
+    <p>Next-generation AI powered applications creator.</p>
   </section>
 
-  <section class="apps fade-in">
+  <!-- Apps Section -->
+  <section class="apps-section">
     <h2>Apps that we develop</h2>
-    <p class="subtext">Please share your feedback to us to improve our app.</p>
+    <p class="small-text">Please share your feedback to us to improve our app.</p>
 
     <div class="app-card">
       <h3>EvoCalculator</h3>
       <p>Unique & Customisable</p>
-      <a href="#" class="btn">Download</a>
+      <a href="#" class="download-btn">Download</a>
+    </div>
+
+    <!-- Future apps placeholder -->
+    <div class="app-card">
+      <h3>More Apps</h3>
+      <p>Coming Soon</p>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer>
-    <h2>EvoraOS</h2>
+    <p>EvoraOS</p>
     <p>New game changing apps creators.</p>
     <div class="footer-buttons">
-      <a href="about.html" class="btn-footer">About Us</a>
-      <a href="mailto:apps.evoraos@outlook.com" class="btn-footer">Contact Us</a>
+      <a href="about.html">About Us</a>
+      <a href="mailto:apps.evoraos@outlook.com">Contact Us</a>
     </div>
   </footer>
 
   <script src="script.js"></script>
+
 </body>
-</html>
+      </html>
