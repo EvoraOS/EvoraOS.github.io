@@ -1,4 +1,1 @@
-function toggleMenu() {
-  const menu = document.getElementById('dropdown-menu');
-  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-}
+// You can add smooth scroll or button animations here if needed.
