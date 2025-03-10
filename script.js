@@ -1,2 +1,1 @@
-// Placeholder for future JS features
-console.log("EvoraOS™ Website Loaded Successfully!");
+// You can add smooth scroll or button animations here if needed.
