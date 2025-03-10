@@ -1,51 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EvoraOS Ai✦</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EvoraOS UI</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="top-bar">
-        <div class="logo">Evo<span>raOS</span></div>
-        <div class="menu">
-            <a href="index.html">Home</a>
-            <a href="apps.html">Apps</a>
-            <a href="ai.html" class="active">EvoraOS Ai✦</a>
-            <a href="contact.html">Contact Us</a>
-        </div>
+
+  <!-- Side Menu -->
+  <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+  <div class="side-menu" id="sideMenu">
+    <div class="close-btn" onclick="closeMenu()">X</div>
+    <div class="menu-item">
+      <span>Home</span>
+      <span>&gt;</span>
+    </div>
+    <div class="menu-item">Apps</div>
+    <div class="menu-item">EvoraAi ✦</div>
+    <div class="menu-bottom">
+      <div class="menu-sub">About us</div>
+      <div class="menu-sub">Contact us</div>
+    </div>
+  </div>
+
+  <!-- Main Page -->
+  <div class="main-page">
+    <button class="learn-more-btn" onclick="openMenu()">Learn More</button>
+
+    <div class="section-title">Apps that we develop</div>
+    <div class="feedback-text">Please share your feedback to us to improve our app.</div>
+
+    <div class="divider"></div>
+
+    <div class="app-card">
+      <div class="app-title">EvoCalculator</div>
+      <div class="app-subtitle">Unique & Customisable</div>
+      <button class="download-btn">Download</button>
     </div>
 
-    <div class="hero-section">
-        <h1>EvoraOS Ai✦</h1>
-        <p>Next-generation AI experiences designed for EvoraOS users.</p>
-        <button class="explore-btn">Explore Ai✦</button>
-    </div>
+    <div class="divider"></div>
 
-    <div class="ai-section">
-        <div class="ai-block">
-            <h2>ChatAi✦</h2>
-            <p>Smart, responsive conversations powered by EvoraOS Ai.</p>
-        </div>
-        <div class="ai-block">
-            <h2>Note Finder Ai✦</h2>
-            <p>Identify music notes in seconds using advanced AI.</p>
-        </div>
-        <div class="ai-block">
-            <h2>Translate Ai✦</h2>
-            <p>Real-time translation, faster and smarter with Ai✦.</p>
-        </div>
-    </div>
+    <div class="coming-soon">More Coming Soon</div>
+  </div>
 
-    <div class="footer">
-        <p>EvoraOS - New game changing apps creators.</p>
-        <div class="footer-links">
-            <a href="about.html">About Us</a>
-            <a href="mailto:apps.evoraos@outlook.com">Contact Us</a>
-        </div>
-    </div>
+  <script src="script.js"></script>
 
-    <script src="script.js"></script>
 </body>
-  </html>
+    </html>
