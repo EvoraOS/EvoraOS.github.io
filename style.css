@@ -1,138 +1,123 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+}
+
 body {
-  margin: 0;
-  font-family: 'Quicksand', sans-serif;
-  background-color: #F5F6F7;
-  color: #333;
-  scroll-behavior: smooth;
+    background-color: #F5F6F7;
+    color: #000;
 }
 
-html {
-  scroll-behavior: smooth; /* Smooth scrolling */
-}
-
-header {
-  background: #ffffff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
 }
 
 .logo {
-  font-size: 1.8rem;
-  font-weight: 700;
+    font-size: 24px;
+    font-weight: bold;
 }
 
-.logo .evo {
-  color: #2979FF; /* Evo Blue */
+.logo span {
+    color: #000;
 }
 
-.logo .raos {
-  color: #000000;
+.menu a {
+    margin-left: 30px;
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
 }
 
-nav a {
-  margin-left: 20px;
-  text-decoration: none;
-  color: #333;
-  font-weight: 600;
+.menu a.active {
+    color: #1E88E5;
 }
 
-.welcome {
-  text-align: center;
-  padding: 80px 20px;
+.hero-section {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #fff;
 }
 
-.welcome h1 {
-  font-size: 2.5rem;
+.hero-section h1 {
+    font-size: 40px;
+    color: #1E88E5;
 }
 
-.gradient-text {
-  background: linear-gradient(to right, #2979FF, #00C6FF);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.hero-section p {
+    font-size: 18px;
+    margin: 20px 0;
 }
 
-.subtitle {
-  font-size: 1.2rem;
-  color: #555;
+.explore-btn {
+    background-color: #1E88E5;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.btn {
-  margin-top: 20px;
-  display: inline-block;
-  padding: 12px 24px;
-  background: #2979FF;
-  color: #ffffff;
-  text-decoration: none;
-  border-radius: 25px;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(41, 121, 255, 0.4); /* Added shadow */
-  transition: all 0.3s ease;
+.explore-btn:hover {
+    background-color: #1565C0;
 }
 
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(41, 121, 255, 0.5);
+.ai-section {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 40px 20px;
 }
 
-.apps {
-  background: #ffffff;
-  padding: 40px 20px;
-  margin: 20px auto;
-  width: 90%;
-  max-width: 1000px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+.ai-block {
+    background-color: #fff;
+    width: 300px;
+    margin: 20px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: 0.3s;
 }
 
-.apps h2 {
-  text-align: center;
-  margin-bottom: 10px;
+.ai-block:hover {
+    transform: translateY(-10px);
 }
 
-.feedback {
-  text-align: center;
-  color: #555;
-  font-size: 0.9rem;
+.ai-block h2 {
+    font-size: 24px;
+    color: #1E88E5;
+    margin-bottom: 10px;
 }
 
-.app-card {
-  background: #f9f9f9;
-  padding: 20px;
-  margin: 20px auto;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+.ai-block p {
+    font-size: 16px;
+    color: #333;
 }
 
-footer {
-  background: #ffffff;
-  padding: 40px 20px;
-  text-align: center;
-  margin-top: 40px;
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+.footer {
+    background-color: #fff;
+    padding: 30px 20px;
+    text-align: center;
+    font-size: 14px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
 }
 
-.footer-buttons .btn {
-  margin: 10px;
+.footer-links {
+    margin-top: 10px;
 }
 
-.about-content {
-  padding: 40px 20px;
-  width: 90%;
-  max-width: 800px;
-  background: #ffffff;
-  margin: 20px auto;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-
-.about-content ul {
-  padding-left: 20px;
-}
-
-.about-content li {
-  margin-bottom: 10px;
+.footer-links a {
+    color: #1E88E5;
+    text-decoration: none;
+    margin: 0 10px;
   }
