@@ -3,6 +3,11 @@ body {
   font-family: 'Quicksand', sans-serif;
   background-color: #F5F6F7;
   color: #333;
+  scroll-behavior: smooth;
+}
+
+html {
+  scroll-behavior: smooth; /* Smooth scrolling */
 }
 
 header {
@@ -63,6 +68,13 @@ nav a {
   text-decoration: none;
   border-radius: 25px;
   font-weight: 600;
+  box-shadow: 0 4px 12px rgba(41, 121, 255, 0.4); /* Added shadow */
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(41, 121, 255, 0.5);
 }
 
 .apps {
