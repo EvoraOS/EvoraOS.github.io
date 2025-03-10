@@ -1,12 +1,1 @@
-const sideMenu = document.getElementById('sideMenu');
-const overlay = document.getElementById('overlay');
-
-function openMenu() {
-  sideMenu.classList.add('open');
-  overlay.classList.add('show');
-}
-
-function closeMenu() {
-  sideMenu.classList.remove('open');
-  overlay.classList.remove('show');
-}
+// Smooth scrolling and animations if required in future.
