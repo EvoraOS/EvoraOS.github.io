@@ -1,40 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EvoraOS</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EvoraOS - Official Website</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="main-container">
-        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="EvoraOS Logo" class="logo">
-        
-        <div class="search-container">
-            <input type="text" placeholder="Search EvoraOS" class="search-box">
-            
-            <div class="buttons">
-                <button onclick="searchEvora()">Evora Search</button>
-                <button onclick="luckyEvora()">I'm Feeling Lucky</button>
-            </div>
-        </div>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">EvoraOS</div>
+    <nav class="nav">
+      <a href="#">Home</a>
+      <a href="#apps">Apps</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Welcome to EvoraOS</h1>
+    <p>India's First Independent AI OS</p>
+    <a href="#apps" class="btn-primary">Download Apps</a>
+  </section>
+
+  <!-- Apps Section -->
+  <section class="apps" id="apps">
+    <h2>Our Apps</h2>
+    <div class="app-list">
+      <div class="app-card">
+        <h3>FlowOS Calculator</h3>
+        <p>Powerful & Simple Calculator</p>
+        <a href="#" class="btn-download">Download</a>
+      </div>
+      <div class="app-card">
+        <h3>EvoraOS Music Notes Finder™</h3>
+        <p>Find the Music Notes of Any Song</p>
+        <a href="#" class="btn-download">Download</a>
+      </div>
+      <!-- Add more app cards if you want -->
     </div>
+  </section>
 
-    <footer>
-        <div class="footer-left">
-            <a href="#">About</a>
-            <a href="#">Advertising</a>
-            <a href="#">Business</a>
-            <a href="#">How Evora Search works</a>
-        </div>
+  <!-- About Section -->
+  <section class="about" id="about">
+    <h2>About EvoraOS</h2>
+    <p>EvoraOS is India's first independent AI operating system, designed for seamless performance, smooth animations, and advanced AI features.</p>
+  </section>
 
-        <div class="footer-right">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#">Settings</a>
-        </div>
-    </footer>
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <h2>Contact Us</h2>
+    <p>Email: apps.evoraos@protonmail.com</p>
+  </section>
 
-    <script src="script.js"></script>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 EvoraOS.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
-</html>
+      </html>
