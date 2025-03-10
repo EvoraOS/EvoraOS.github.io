@@ -1,85 +1,148 @@
+/* General Styles */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #F5F6F7;
+  color: #333;
 }
 
-.main-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 15%;
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Header */
+.header {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
 }
 
 .logo {
-    width: 272px;
-    height: 92px;
-    margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #1E88E5; /* Evo Blue */
 }
 
-.search-container {
-    width: 100%;
-    max-width: 584px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.nav a {
+  margin-left: 20px;
+  color: #333;
+  font-weight: 500;
 }
 
-.search-box {
-    width: 100%;
-    padding: 12px 20px;
-    font-size: 16px;
-    border: 1px solid #dcdcdc;
-    border-radius: 24px;
-    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
-    outline: none;
-    transition: box-shadow 0.3s ease-in-out;
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+  background-color: white;
 }
 
-.search-box:focus {
-    box-shadow: 0 1px 8px rgba(32, 33, 36, 0.35);
+.hero h1 {
+  font-size: 48px;
+  color: #1E88E5;
 }
 
-.buttons {
-    margin-top: 20px;
+.hero p {
+  font-size: 18px;
+  color: #555;
 }
 
-button {
-    background-color: #f8f9fa;
-    border: 1px solid #f8f9fa;
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 4px;
-    color: #3c4043;
-    font-size: 14px;
-    cursor: pointer;
-    transition: box-shadow 0.2s;
+.btn-primary {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 30px;
+  background-color: #1E88E5;
+  color: white;
+  border-radius: 5px;
+  font-weight: 600;
 }
 
-button:hover {
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-    border: 1px solid #dadce0;
+/* Apps Section */
+.apps {
+  padding: 60px 20px;
 }
 
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #f2f2f2;
-    color: #5f6368;
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 30px;
-    font-size: 14px;
+.apps h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #1E88E5;
 }
 
-footer a {
-    color: #5f6368;
-    text-decoration: none;
-    margin: 0 10px;
+.app-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
-footer a:hover {
-    text-decoration: underline;
+.app-card {
+  background-color: white;
+  padding: 20px;
+  width: 280px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.app-card h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.btn-download {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 25px;
+  background-color: #1E88E5;
+  color: white;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+/* About Section */
+.about {
+  background-color: white;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.about h2 {
+  color: #1E88E5;
+  margin-bottom: 20px;
+}
+
+.about p {
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Contact Section */
+.contact {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.contact h2 {
+  color: #1E88E5;
+  margin-bottom: 20px;
+}
+
+.contact p {
+  color: #555;
+}
+
+/* Footer */
+.footer {
+  background-color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: #888;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
 }
