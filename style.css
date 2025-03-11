@@ -56,6 +56,9 @@ body {
     padding: 60px 30px;
     text-align: left;
     background-color: white;
+
+    /* Added margin to create space between banner and welcome section */
+    margin-top: 50px; /* You can adjust the px value if you want more or less space */
 }
 
 .welcome-section h2 {
