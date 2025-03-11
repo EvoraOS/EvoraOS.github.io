@@ -77,6 +77,87 @@ body {
     line-height: 1.2;
 }
 
+/* Apps Section - Added to match the image */
+.apps-section {
+    background: linear-gradient(to bottom, #1e90ff, #87cefa, #f0f8ff);
+    padding: 40px 30px 200px;
+    color: white;
+    text-align: center;
+    position: relative;
+}
+
+.learn-more-container {
+    text-align: left;
+    margin-bottom: 60px;
+}
+
+.learn-more-button {
+    display: inline-block;
+    background-color: #1e90ff;
+    color: white;
+    text-decoration: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.apps-heading {
+    font-size: 60px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.feedback-text {
+    font-size: 32px;
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.divider {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 40px 0;
+}
+
+.app-item {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.app-name {
+    font-size: 50px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.app-description {
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.download-button {
+    display: inline-block;
+    background-color: white;
+    color: #1e90ff;
+    text-decoration: none;
+    padding: 15px 50px;
+    border-radius: 30px;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.coming-soon-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.coming-soon-text {
+    font-size: 50px;
+    font-weight: 600;
+}
+
 /* Menu Page Styles */
 .menu-page {
     background-color: #f0f0f0;
@@ -197,6 +278,32 @@ nav ul {
     .arrow {
         font-size: 32px;
     }
+    
+    /* Added responsive styling for Apps section */
+    .apps-heading {
+        font-size: 40px;
+    }
+    
+    .feedback-text {
+        font-size: 24px;
+    }
+    
+    .app-name {
+        font-size: 36px;
+    }
+    
+    .app-description {
+        font-size: 22px;
+    }
+    
+    .download-button {
+        font-size: 22px;
+        padding: 12px 40px;
+    }
+    
+    .coming-soon-text {
+        font-size: 36px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -212,7 +319,34 @@ nav ul {
         padding: 100px 20px 0;
     }
     
+    /* Added more responsive styling for smaller screens */
+    .apps-heading {
+        font-size: 32px;
+    }
+    
+    .feedback-text {
+        font-size: 18px;
+    }
+    
+    .app-name {
+        font-size: 28px;
+    }
+    
+    .app-description {
+        font-size: 18px;
+    }
+    
+    .download-button {
+        font-size: 18px;
+        padding: 10px 30px;
+    }
+    
     .coming-soon-text {
-        font-size: 12px;
+        font-size: 28px;
+    }
+    
+    .learn-more-button {
+        font-size: 18px;
+        padding: 10px 30px;
     }
     }
