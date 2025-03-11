@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+}
+
+body {
+    background-color: white;
+}
+
+/* Menu Button */
+.menu-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    background-color: #333;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 15px;
+}
+
+.menu-icon span {
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    border-radius: 3px;
+}
+
+/* Banner Section */
+.banner {
+    width: 100%;
+    overflow: hidden;
+}
+
+.banner-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Welcome Section */
+.welcome-section {
+    padding: 60px 30px;
+    text-align: left;
+    background-color: white;
+
+    /* Added margin to create space between banner and welcome section */
+    margin-top: 50px; /* You can adjust the px value if you want more or less space */
+}
+
+.welcome-section h2 {
+    font-size: 90px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.welcome-section p {
+    font-size: 42px;
+    font-weight: 400;
+    color: #333;
+    max-width: 800px;
+    line-height: 1.2;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .devices-container {
+        flex-direction: column;
+    }
+    
+    .left-device, .center-content, .right-device {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    
+    .app-info {
+        position: relative;
+        width: 100%;
+    }
+    
+    .welcome-section h2 {
+        font-size: 60px;
+    }
+    
+    .welcome-section p {
+        font-size: 24px;
+    }
+}
