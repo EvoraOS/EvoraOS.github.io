@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EvoraOS - Next-generation AI powered applications creator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="menu.html" class="menu-button">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </a>
+
+    <div class="banner">
+        <img src="evoraos_banner.jpg" alt="EvoraOS Banner" class="banner-image">
+    </div>
+
+    <div class="welcome-section">
+        <h2>Welcome</h2>
+        <p>Next-generation AI powered applications creator</p>
+    </div>
+
+    <script>
+        // Add event listener to menu button
+        document.querySelector('.menu-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'menu.html';
+        });
+    </script>
+</body>
+</html>
