@@ -1,4 +1,15 @@
-/* Menu Button - make sure it has cursor pointer */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+}
+
+body {
+    background-color: white;
+}
+
+/* Menu Button */
 .menu-button {
     position: fixed;
     top: 20px;
@@ -11,13 +22,197 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer; /* Ensures the cursor changes to a hand when hovering */
+    cursor: pointer;
 }
 
-/* Menu Close Button - make sure it has cursor pointer */
+.menu-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 15px;
+}
+
+.menu-icon span {
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    border-radius: 3px;
+}
+
+/* Banner Section */
+.banner {
+    width: 100%;
+    overflow: hidden;
+}
+
+.banner-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Welcome Section */
+.welcome-section {
+    padding: 60px 30px;
+    text-align: left;
+    background-color: white;
+
+    /* Added margin to create space between banner and welcome section */
+    margin-top: 50px; /* You can adjust the px value if you want more or less space */
+}
+
+.welcome-section h2 {
+    font-size: 90px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.welcome-section p {
+    font-size: 42px;
+    font-weight: 400;
+    color: #333;
+    max-width: 800px;
+    line-height: 1.2;
+}
+
+/* Menu Page Styles */
+.menu-page {
+    background-color: #f0f0f0;
+    min-height: 100vh;
+    position: relative;
+}
+
 .menu-close {
     position: absolute;
     top: 20px;
     left: 20px;
-    cursor: pointer; /* Ensures the cursor changes to a hand when hovering */
+    cursor: pointer;
 }
+
+.close-icon {
+    font-size: 40px;
+    font-weight: 300;
+}
+
+.menu-container {
+    padding: 120px 30px 0;
+}
+
+.main-menu, .secondary-menu {
+    margin-bottom: 20px;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 42px;
+    padding: 15px 0;
+    position: relative;
+}
+
+.menu-item a {
+    color: #000;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+.arrow {
+    font-size: 42px;
+    color: #000;
+}
+
+.diamond {
+    font-size: 32px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.menu-divider {
+    height: 1px;
+    background-color: #ccc;
+    margin: 40px 0;
+}
+
+.secondary-menu .menu-item {
+    color: #666;
+}
+
+.secondary-menu .menu-item a {
+    color: #666;
+}
+
+/* Coming Soon Styles */
+.coming-soon {
+    color: #0066cc !important;
+    position: relative;
+}
+
+.coming-soon-text {
+    font-size: 14px;
+    color: #0066cc;
+    background-color: rgba(0, 102, 204, 0.1);
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+/* Navigation Styles */
+nav ul {
+    list-style: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .devices-container {
+        flex-direction: column;
+    }
+    
+    .left-device, .center-content, .right-device {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    
+    .app-info {
+        position: relative;
+        width: 100%;
+    }
+    
+    .welcome-section h2 {
+        font-size: 60px;
+    }
+    
+    .welcome-section p {
+        font-size: 24px;
+    }
+    
+    .menu-item {
+        font-size: 32px;
+    }
+    
+    .arrow {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 600px) {
+    .menu-item {
+        font-size: 24px;
+    }
+    
+    .arrow {
+        font-size: 24px;
+    }
+    
+    .menu-container {
+        padding: 100px 20px 0;
+    }
+    
+    .coming-soon-text {
+        font-size: 12px;
+    }
+    }
