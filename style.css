@@ -54,12 +54,9 @@ body {
 
 /* Welcome Section */
 .welcome-section {
-    padding: 60px 30px;
+    padding: 40px 30px;
     text-align: left;
     background-color: white;
-
-    /* Added margin to create space between banner and welcome section */
-    margin-top: 50px; /* You can adjust the px value if you want more or less space */
 }
 
 .welcome-section h2 {
@@ -77,122 +74,166 @@ body {
     line-height: 1.2;
 }
 
-/* Menu Page Styles */
-.menu-page {
-    background-color: #f0f0f0;
-    min-height: 100vh;
-    position: relative;
+/* Learn More Button Outside Apps Section */
+.learn-more-container-outside {
+    text-align: left;
+    padding: 0 30px 40px 30px;
 }
 
-.menu-close {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    cursor: pointer;
-}
-
-.close-icon {
-    font-size: 40px;
-    font-weight: 300;
-}
-
-.menu-container {
-    padding: 120px 30px 0;
-}
-
-.main-menu, .secondary-menu {
-    margin-bottom: 20px;
-}
-
-.menu-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 42px;
-    padding: 15px 0;
-    position: relative;
-}
-
-.menu-item a {
-    color: #000;
-    text-decoration: none;
-    font-weight: 400;
-}
-
-.arrow {
-    font-size: 42px;
-    color: #000;
-}
-
-.diamond {
-    font-size: 32px;
+.learn-more-button-outside {
     display: inline-block;
-    vertical-align: middle;
-    margin-left: 5px;
+    background-color: #1e90ff;
+    color: white;
+    text-decoration: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 24px;
+    font-weight: 500;
 }
 
-.menu-divider {
+/* Apps Section */
+.apps-section {
+    background: linear-gradient(to bottom, #1e90ff, #87cefa, #f0f8ff);
+    padding: 40px 30px 200px;
+    color: white;
+    min-height: 100vh;
+}
+
+.apps-heading {
+    font-size: 60px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.feedback-text {
+    font-size: 32px;
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.divider {
     height: 1px;
-    background-color: #ccc;
+    background-color: rgba(255, 255, 255, 0.5);
     margin: 40px 0;
+    width: 100%;
 }
 
-.secondary-menu .menu-item {
-    color: #666;
+.app-item {
+    text-align: center;
+    padding: 20px 0;
 }
 
-.secondary-menu .menu-item a {
-    color: #666;
+.app-name {
+    font-size: 60px;
+    font-weight: 600;
+    margin-bottom: 15px;
 }
 
-/* Navigation Styles */
-nav ul {
-    list-style: none;
+.app-description {
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+.download-button {
+    display: inline-block;
+    background-color: white;
+    color: #1e90ff;
+    text-decoration: none;
+    padding: 15px 50px;
+    border-radius: 30px;
+    font-size: 32px;
+    font-weight: 500;
+}
+
+/* Coming Soon Section */
+.coming-soon-container {
+    text-align: left;
+    margin-top: 60px;
+}
+
+.coming-soon-text {
+    font-size: 60px;
+    font-weight: 600;
 }
 
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
-    .devices-container {
-        flex-direction: column;
-    }
-    
-    .left-device, .center-content, .right-device {
-        width: 100%;
-        margin-bottom: 30px;
-    }
-    
-    .app-info {
-        position: relative;
-        width: 100%;
-    }
-    
     .welcome-section h2 {
         font-size: 60px;
     }
-    
+
     .welcome-section p {
         font-size: 24px;
     }
-    
-    .menu-item {
-        font-size: 32px;
+
+    .apps-heading {
+        font-size: 40px;
     }
-    
-    .arrow {
-        font-size: 32px;
+
+    .feedback-text {
+        font-size: 24px;
+    }
+
+    .app-name {
+        font-size: 36px;
+    }
+
+    .app-description {
+        font-size: 22px;
+    }
+
+    .download-button {
+        font-size: 22px;
+        padding: 12px 40px;
+    }
+
+    .coming-soon-text {
+        font-size: 36px;
+    }
+
+    .learn-more-button-outside {
+        font-size: 18px;
+        padding: 10px 30px;
     }
 }
 
 @media (max-width: 600px) {
-    .menu-item {
-        font-size: 24px;
+    .welcome-section h2 {
+        font-size: 48px;
     }
-    
-    .arrow {
-        font-size: 24px;
+
+    .welcome-section p {
+        font-size: 18px;
     }
-    
-    .menu-container {
-        padding: 100px 20px 0;
+
+    .apps-heading {
+        font-size: 32px;
     }
-}
+
+    .feedback-text {
+        font-size: 18px;
+    }
+
+    .app-name {
+        font-size: 28px;
+    }
+
+    .app-description {
+        font-size: 18px;
+    }
+
+    .download-button {
+        font-size: 18px;
+        padding: 10px 30px;
+    }
+
+    .coming-soon-text {
+        font-size: 28px;
+    }
+
+    .learn-more-button-outside {
+        font-size: 16px;
+        padding: 8px 20px;
+    }
+    }
