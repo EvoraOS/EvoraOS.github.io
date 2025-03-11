@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="menu-page">
-    <!-- Added onclick to return to home page -->
+    <!-- Return to home page when X is clicked -->
     <div class="menu-close" onclick="window.location.href='index.html'">
         <span class="close-icon">X</span>
     </div>
@@ -25,7 +25,9 @@
                     <span class="arrow">></span>
                 </li>
                 <li class="menu-item">
-                    <a href="evoraai.html">EvoraAi✦</span></a>
+                    <!-- Added coming soon with disabled link -->
+                    <a href="javascript:void(0);" class="coming-soon">EvoraAi✦</span></a>
+                    <span class="coming-soon-text">Coming Soon</span>
                     <span class="arrow">></span>
                 </li>
             </ul>
@@ -40,11 +42,19 @@
                     <span class="arrow">></span>
                 </li>
                 <li class="menu-item">
-                    <a href="contact.html">Contact us</a>
+                    <!-- Added email link -->
+                    <a href="mailto:apps.evoraos@outlook.com">Contact us</a>
                     <span class="arrow">></span>
                 </li>
             </ul>
         </nav>
     </div>
+
+    <!-- Added script for coming soon alert -->
+    <script>
+        document.querySelector('.coming-soon').addEventListener('click', function() {
+            alert('EvoraAi is coming soon!');
+        });
+    </script>
 </body>
 </html>
