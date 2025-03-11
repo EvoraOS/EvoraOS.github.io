@@ -1,138 +1,28 @@
 body {
-  margin: 0;
-  font-family: 'Quicksand', sans-serif;
-  background-color: #F5F6F7;
-  color: #333;
-  scroll-behavior: smooth;
-}
-
-html {
-  scroll-behavior: smooth; /* Smooth scrolling */
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #F5F6F7;
+    text-align: center;
 }
 
 header {
-  background: #ffffff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    padding: 20px;
 }
 
-.logo {
-  font-size: 1.8rem;
-  font-weight: 700;
+.banner {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin-bottom: 20px;
 }
 
-.logo .evo {
-  color: #2979FF; /* Evo Blue */
+h1 {
+    font-size: 48px;
+    margin: 10px 0;
 }
 
-.logo .raos {
-  color: #000000;
+p {
+    font-size: 20px;
+    color: #333;
 }
-
-nav a {
-  margin-left: 20px;
-  text-decoration: none;
-  color: #333;
-  font-weight: 600;
-}
-
-.welcome {
-  text-align: center;
-  padding: 80px 20px;
-}
-
-.welcome h1 {
-  font-size: 2.5rem;
-}
-
-.gradient-text {
-  background: linear-gradient(to right, #2979FF, #00C6FF);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.subtitle {
-  font-size: 1.2rem;
-  color: #555;
-}
-
-.btn {
-  margin-top: 20px;
-  display: inline-block;
-  padding: 12px 24px;
-  background: #2979FF;
-  color: #ffffff;
-  text-decoration: none;
-  border-radius: 25px;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(41, 121, 255, 0.4); /* Added shadow */
-  transition: all 0.3s ease;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(41, 121, 255, 0.5);
-}
-
-.apps {
-  background: #ffffff;
-  padding: 40px 20px;
-  margin: 20px auto;
-  width: 90%;
-  max-width: 1000px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-
-.apps h2 {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.feedback {
-  text-align: center;
-  color: #555;
-  font-size: 0.9rem;
-}
-
-.app-card {
-  background: #f9f9f9;
-  padding: 20px;
-  margin: 20px auto;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-footer {
-  background: #ffffff;
-  padding: 40px 20px;
-  text-align: center;
-  margin-top: 40px;
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
-}
-
-.footer-buttons .btn {
-  margin: 10px;
-}
-
-.about-content {
-  padding: 40px 20px;
-  width: 90%;
-  max-width: 800px;
-  background: #ffffff;
-  margin: 20px auto;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-
-.about-content ul {
-  padding-left: 20px;
-}
-
-.about-content li {
-  margin-bottom: 10px;
-    }
