@@ -3,26 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EvoraOS - Next-generation AI powered applications creator</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>EvoraOS - Apps</title>
+
+    <!-- Google Fonts (Quicksand) -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Optional: Favicon -->
+    <link rel="icon" href="evoraos-logo.png" type="image/png">
 </head>
 <body>
-    <div class="menu-button">
-        <div class="menu-icon">
-            <span></span>
-            <span></span>
-            <span></span>
+
+    <!-- ===== Welcome Section ===== -->
+    <section class="welcome-section">
+        <h2>
+            <span style="background: linear-gradient(90deg, #007bff, #00c6ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Welcome to EvoraOS
+            </span>
+        </h2>
+        <p>Next-generation AI powered applications creator.</p>
+    </section>
+
+    <!-- ===== Apps Section Starts ===== -->
+    <section class="apps-section">
+
+        <!-- Learn More Button -->
+        <button class="learn-more-btn" onclick="location.href='about.html'">Learn More</button>
+
+        <!-- Apps that we develop -->
+        <h2 class="apps-heading">Apps that we develop</h2>
+
+        <!-- Feedback Line -->
+        <p class="apps-subtext">Please share your feedback to us to improve our app.</p>
+
+        <!-- Divider -->
+        <div class="divider"></div>
+
+        <!-- EvoCalculator Card -->
+        <div class="app-card">
+            <h3 class="app-title">EvoCalculator</h3>
+            <p class="app-desc">Unique & Customisable</p>
+            <button class="download-btn" onclick="location.href='evocalculator.apk'">Download</button>
         </div>
-    </div>
 
-    <div class="banner">
-        <img src="evoraos_banner.jpg" alt="EvoraOS Banner" class="banner-image">
-    </div>
+        <!-- Divider -->
+        <div class="divider"></div>
 
-    <div class="welcome-section">
-        <h2>Welcome</h2>
-        <p>Next-generation AI powered applications creator</p>
-    </div>
+        <!-- More Coming Soon -->
+        <h3 class="coming-soon-text">More Coming Soon</h3>
+
+    </section>
+
 </body>
-</html>
+            </html>
