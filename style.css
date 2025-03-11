@@ -1,4 +1,4 @@
-/* Reset default */
+/* Reset default styles */
 * {
     margin: 0;
     padding: 0;
@@ -15,30 +15,43 @@ body {
 /* Banner Styles */
 .banner-container {
     width: 100%;
-    height: auto;
     overflow: hidden;
-    background-color: #F5F6F7;
 }
 
 .banner-image {
     width: 100%;
     height: auto;
-    max-width: 720px;  /* Optional: limit max width */
     display: block;
-    margin: 0 auto;
 }
 
-/* Content Below Banner */
+/* Main Content Styles */
 .content {
     padding: 20px;
 }
 
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
 .learn-more-btn {
     display: inline-block;
-    margin-top: 10px;
     padding: 10px 20px;
-    background: #007BFF;
+    background-color: #007BFF;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
-  }
+}
+
+/* Footer Styles */
+footer {
+    margin-top: 40px;
+    padding: 20px;
+    font-size: 14px;
+    color: #777;
+}
