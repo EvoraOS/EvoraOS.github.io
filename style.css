@@ -52,43 +52,17 @@ body {
     display: block;
 }
 
-/* Welcome Section */
-.welcome-section {
-    padding: 60px 30px;
-    text-align: left;
-    background-color: white;
-
-    /* Added margin to create space between banner and welcome section */
-    margin-top: 50px; /* You can adjust the px value if you want more or less space */
-}
-
-.welcome-section h2 {
-    font-size: 90px;
-    font-weight: 800;
-    margin-bottom: 15px;
-    color: #000;
-}
-
-.welcome-section p {
-    font-size: 42px;
-    font-weight: 400;
-    color: #333;
-    max-width: 800px;
-    line-height: 1.2;
-}
-
-/* Apps Section - Added to match the image */
+/* Apps Section - Main section that matches the image */
 .apps-section {
     background: linear-gradient(to bottom, #1e90ff, #87cefa, #f0f8ff);
     padding: 40px 30px 200px;
     color: white;
-    text-align: center;
-    position: relative;
+    min-height: 100vh;
 }
 
 .learn-more-container {
     text-align: left;
-    margin-bottom: 60px;
+    margin-bottom: 120px;
 }
 
 .learn-more-button {
@@ -117,8 +91,9 @@ body {
 
 .divider {
     height: 1px;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.5);
     margin: 40px 0;
+    width: 100%;
 }
 
 .app-item {
@@ -127,13 +102,13 @@ body {
 }
 
 .app-name {
-    font-size: 50px;
+    font-size: 60px;
     font-weight: 600;
     margin-bottom: 15px;
 }
 
 .app-description {
-    font-size: 30px;
+    font-size: 36px;
     margin-bottom: 30px;
 }
 
@@ -144,17 +119,17 @@ body {
     text-decoration: none;
     padding: 15px 50px;
     border-radius: 30px;
-    font-size: 30px;
+    font-size: 32px;
     font-weight: 500;
 }
 
 .coming-soon-container {
-    text-align: center;
-    margin-top: 40px;
+    text-align: left;
+    margin-top: 60px;
 }
 
 .coming-soon-text {
-    font-size: 50px;
+    font-size: 60px;
     font-weight: 600;
 }
 
@@ -232,21 +207,6 @@ body {
     position: relative;
 }
 
-.coming-soon-text {
-    font-size: 14px;
-    color: #0066cc;
-    background-color: rgba(0, 102, 204, 0.1);
-    border-radius: 4px;
-    padding: 2px 8px;
-    margin-left: 10px;
-    font-weight: 500;
-}
-
-/* Navigation Styles */
-nav ul {
-    list-style: none;
-}
-
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
     .devices-container {
@@ -261,14 +221,6 @@ nav ul {
     .app-info {
         position: relative;
         width: 100%;
-    }
-    
-    .welcome-section h2 {
-        font-size: 60px;
-    }
-    
-    .welcome-section p {
-        font-size: 24px;
     }
     
     .menu-item {
@@ -349,4 +301,4 @@ nav ul {
         font-size: 18px;
         padding: 10px 30px;
     }
-    }
+        }
