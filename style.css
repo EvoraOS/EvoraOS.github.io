@@ -1,70 +1,57 @@
-/* Reset and base styles */
+/* Reset Styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Body Styles */
 body {
-  background-color: #F5F6F7;
-  font-family: 'Quicksand', sans-serif;
-  color: #000;
+  background-color: #ffffff; /* Pure white background */
+  font-family: 'Quicksand', sans-serif; /* Quicksand font */
+  color: #000000;
+  padding: 0;
+  margin: 0;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-/* Banner Section */
+/* Banner Styles - Full Width & Top Height */
 .banner {
   width: 100%;
-  max-width: 800px;
-  margin: 0 auto 30px auto;
-  padding: 10px;
-  background-color: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  height: 250px; /* Adjust this height as per your design */
+  background-image: url('evoraos_banner.jpg'); /* Your banner image */
+  background-size: cover; /* Cover full area without stretching */
+  background-position: center top; /* Center horizontally, top aligned */
+  background-repeat: no-repeat;
 }
 
-.banner img {
-  width: 100%;
-  height: auto;
-  border-radius: 20px;
-  display: block;
+/* Welcome Text Section */
+.welcome {
+  padding: 20px; /* Space around text */
+  text-align: left; /* Align all text to left */
 }
 
-/* Welcome Section */
-.welcome-section {
-  text-align: left; /* Align text to the left */
-  max-width: 800px;
-  margin: 0 auto; /* Center the block, but text inside is left aligned */
-  padding: 10px;
-}
-
-.welcome-section h1 {
-  font-size: 36px;
+.welcome h1 {
+  font-size: 32px;
   font-weight: 700;
 }
 
-.welcome-section p {
+.welcome p {
   font-size: 18px;
-  color: #333;
+  color: #333333;
   margin-top: 10px;
 }
 
-/* Mobile Responsive */
+/* Responsive for Small Devices */
 @media screen and (max-width: 768px) {
   .banner {
-    max-width: 95%;
+    height: 200px; /* Smaller banner height for mobile */
   }
 
-  .welcome-section h1 {
+  .welcome h1 {
     font-size: 28px;
   }
 
-  .welcome-section p {
+  .welcome p {
     font-size: 16px;
   }
 }
