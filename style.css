@@ -52,20 +52,35 @@ body {
     display: block;
 }
 
-/* Apps Section - Main section that matches the image */
-.apps-section {
-    background: linear-gradient(to bottom, #1e90ff, #87cefa, #f0f8ff);
-    padding: 40px 30px 200px;
-    color: white;
-    min-height: 100vh;
-}
-
-.learn-more-container {
+/* Welcome Section */
+.welcome-section {
+    padding: 40px 30px;
     text-align: left;
-    margin-bottom: 120px;
+    background-color: white;
 }
 
-.learn-more-button {
+.welcome-section h2 {
+    font-size: 90px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.welcome-section p {
+    font-size: 42px;
+    font-weight: 400;
+    color: #333;
+    max-width: 800px;
+    line-height: 1.2;
+}
+
+/* Learn More Button Outside Apps Section */
+.learn-more-container-outside {
+    text-align: left;
+    padding: 0 30px 40px 30px;
+}
+
+.learn-more-button-outside {
     display: inline-block;
     background-color: #1e90ff;
     color: white;
@@ -74,6 +89,14 @@ body {
     border-radius: 30px;
     font-size: 24px;
     font-weight: 500;
+}
+
+/* Apps Section */
+.apps-section {
+    background: linear-gradient(to bottom, #1e90ff, #87cefa, #f0f8ff);
+    padding: 40px 30px 200px;
+    color: white;
+    min-height: 100vh;
 }
 
 .apps-heading {
@@ -123,6 +146,7 @@ body {
     font-weight: 500;
 }
 
+/* Coming Soon Section */
 .coming-soon-container {
     text-align: left;
     margin-top: 60px;
@@ -133,172 +157,83 @@ body {
     font-weight: 600;
 }
 
-/* Menu Page Styles */
-.menu-page {
-    background-color: #f0f0f0;
-    min-height: 100vh;
-    position: relative;
-}
-
-.menu-close {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    cursor: pointer;
-}
-
-.close-icon {
-    font-size: 40px;
-    font-weight: 300;
-}
-
-.menu-container {
-    padding: 120px 30px 0;
-}
-
-.main-menu, .secondary-menu {
-    margin-bottom: 20px;
-}
-
-.menu-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 42px;
-    padding: 15px 0;
-    position: relative;
-}
-
-.menu-item a {
-    color: #000;
-    text-decoration: none;
-    font-weight: 400;
-}
-
-.arrow {
-    font-size: 42px;
-    color: #000;
-}
-
-.diamond {
-    font-size: 32px;
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 5px;
-}
-
-.menu-divider {
-    height: 1px;
-    background-color: #ccc;
-    margin: 40px 0;
-}
-
-.secondary-menu .menu-item {
-    color: #666;
-}
-
-.secondary-menu .menu-item a {
-    color: #666;
-}
-
-/* Coming Soon Styles */
-.coming-soon {
-    color: #0066cc !important;
-    position: relative;
-}
-
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
-    .devices-container {
-        flex-direction: column;
+    .welcome-section h2 {
+        font-size: 60px;
     }
-    
-    .left-device, .center-content, .right-device {
-        width: 100%;
-        margin-bottom: 30px;
+
+    .welcome-section p {
+        font-size: 24px;
     }
-    
-    .app-info {
-        position: relative;
-        width: 100%;
-    }
-    
-    .menu-item {
-        font-size: 32px;
-    }
-    
-    .arrow {
-        font-size: 32px;
-    }
-    
-    /* Added responsive styling for Apps section */
+
     .apps-heading {
         font-size: 40px;
     }
-    
+
     .feedback-text {
         font-size: 24px;
     }
-    
+
     .app-name {
         font-size: 36px;
     }
-    
+
     .app-description {
         font-size: 22px;
     }
-    
+
     .download-button {
         font-size: 22px;
         padding: 12px 40px;
     }
-    
+
     .coming-soon-text {
         font-size: 36px;
+    }
+
+    .learn-more-button-outside {
+        font-size: 18px;
+        padding: 10px 30px;
     }
 }
 
 @media (max-width: 600px) {
-    .menu-item {
-        font-size: 24px;
+    .welcome-section h2 {
+        font-size: 48px;
     }
-    
-    .arrow {
-        font-size: 24px;
+
+    .welcome-section p {
+        font-size: 18px;
     }
-    
-    .menu-container {
-        padding: 100px 20px 0;
-    }
-    
-    /* Added more responsive styling for smaller screens */
+
     .apps-heading {
         font-size: 32px;
     }
-    
+
     .feedback-text {
         font-size: 18px;
     }
-    
+
     .app-name {
         font-size: 28px;
     }
-    
+
     .app-description {
         font-size: 18px;
     }
-    
+
     .download-button {
         font-size: 18px;
         padding: 10px 30px;
     }
-    
+
     .coming-soon-text {
         font-size: 28px;
     }
-    
-    .learn-more-button {
-        font-size: 18px;
-        padding: 10px 30px;
+
+    .learn-more-button-outside {
+        font-size: 16px;
+        padding: 8px 20px;
     }
-        }
+                                }
