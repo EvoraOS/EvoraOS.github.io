@@ -31,12 +31,12 @@ body {
 }
 
 .welcome h1 {
-  font-size: 45px;
+  font-size: 35px;
   font-weight: 700;
 }
 
 .welcome p {
-  font-size: 32px;
+  font-size: 18px;
   color: #333333;
   margin-top: 10px;
 }
