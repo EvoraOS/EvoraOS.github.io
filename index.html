@@ -6,24 +6,25 @@
     <title>EvoraOS - Next-generation AI powered applications creator</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 <body>
     <!-- Navigation Header -->
-    <header class="site-header">
+    <header class="site-header animate__animated animate__fadeIn">
         <nav class="main-navigation">
             <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="apps.html">Apps</a></li>
-                <li><a href="evoraai.html">EvoraAI<span class="diamond"></span></a></li>
-                <li><a href="about.html">About us</a></li>
-                <li><a href="contact.html">Contact us</a></li>
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="apps.html" class="nav-link">Apps</a></li>
+                <li><a href="evoraai.html" class="nav-link">EvoraAI<span class="diamond"></span></a></li>
+                <li><a href="about.html" class="nav-link">About us</a></li>
+                <li><a href="contact.html" class="nav-link">Contact us</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Menu Button -->
     <a href="#" class="menu-trigger">
-        <div class="menu-button">
+        <div class="menu-button animate__animated animate__pulse animate__infinite animate__slower">
             <div class="menu-icon">
                 <span></span>
                 <span></span>
@@ -39,28 +40,28 @@
         </div>
         <div class="menu-container">
             <div class="main-menu">
-                <div class="menu-item">
+                <div class="menu-item fade-in-item">
                     <a href="index.html">Home</a>
                     <span class="arrow">></span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item fade-in-item">
                     <a href="apps.html">Apps</a>
                     <span class="arrow">></span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item fade-in-item">
                     <a href="evoraai.html">EvoraAi<span class="diamond"></span></a>
                     <span class="arrow">></span>
                 </div>
             </div>
             
-            <div class="menu-divider"></div>
+            <div class="menu-divider fade-in-item"></div>
             
             <div class="secondary-menu">
-                <div class="menu-item">
+                <div class="menu-item fade-in-item">
                     <a href="about.html">About us</a>
                     <span class="arrow">></span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item fade-in-item">
                     <a href="contact.html">Contact us</a>
                     <span class="arrow">></span>
                 </div>
@@ -69,57 +70,111 @@
     </div>
     
     <!-- Banner Section -->
-    <div class="banner">
+    <div class="banner animate__animated animate__fadeIn">
         <img src="evoraos_banner.jpg" alt="EvoraOS Banner" class="banner-image">
     </div>
 
     <!-- Welcome Section -->
-    <div class="welcome-section">
+    <div class="welcome-section scroll-reveal">
         <h2>Welcome</h2>
         <p>Next-generation AI powered applications creator</p>
     </div>
 
     <!-- Learn More Button (outside the apps-section) -->
-    <div class="learn-more-container-outside">
-        <a href="#" class="learn-more-button-outside">Learn More</a>
+    <div class="learn-more-container-outside scroll-reveal">
+        <a href="#" class="learn-more-button-outside hover-effect">Learn More</a>
     </div>
 
     <!-- Apps Section -->
     <div class="apps-section">
-        <h2 class="apps-heading">Apps that we develop</h2>
-        <p class="feedback-text">Please share your feedback to us to improve our app.</p>
+        <h2 class="apps-heading scroll-reveal">Apps that we develop</h2>
+        <p class="feedback-text scroll-reveal">Please share your feedback to us to improve our app.</p>
 
-        <div class="divider"></div>
+        <div class="divider scroll-reveal"></div>
 
-        <div class="app-item">
+        <div class="app-item scroll-reveal">
             <h3 class="app-name">EvoCalculator</h3>
             <p class="app-description">Unique & Customisable</p>
-            <a href="#" class="download-button">Download</a>
+            <a href="#" class="download-button hover-effect">Download</a>
         </div>
 
-        <div class="divider"></div>
+        <div class="divider scroll-reveal"></div>
 
-        <div class="coming-soon-container">
+        <div class="coming-soon-container scroll-reveal">
             <h2 class="coming-soon-text">More Coming Soon</h2>
         </div>
     </div>
 
     <!-- Add JavaScript at the end of the body -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Menu Toggle Functionality
             const menuTrigger = document.querySelector('.menu-trigger');
             const menuClose = document.querySelector('.menu-close');
             const menuPage = document.querySelector('.menu-page');
+            const fadeItems = document.querySelectorAll('.fade-in-item');
             
             menuTrigger.addEventListener('click', function(e) {
                 e.preventDefault();
                 menuPage.classList.add('menu-active');
+                
+                // Create staggered animation for menu items
+                fadeItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('fade-in-active');
+                    }, 100 * (index + 1));
+                });
             });
             
             menuClose.addEventListener('click', function() {
                 menuPage.classList.remove('menu-active');
+                fadeItems.forEach(item => {
+                    item.classList.remove('fade-in-active');
+                });
+            });
+            
+            // Scroll Animations
+            const scrollElements = document.querySelectorAll('.scroll-reveal');
+            
+            // Initialize ScrollMagic Controller
+            const controller = new ScrollMagic.Controller();
+            
+            // Create scene for each scroll-reveal element
+            scrollElements.forEach(element => {
+                new ScrollMagic.Scene({
+                    triggerElement: element,
+                    triggerHook: 0.85,
+                    reverse: false
+                })
+                .on('enter', function() {
+                    element.classList.add('scroll-active');
+                })
+                .addTo(controller);
+            });
+            
+            // Hover effect for buttons
+            const buttons = document.querySelectorAll('.hover-effect');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', () => {
+                    button.classList.add('button-hover');
+                });
+                button.addEventListener('mouseleave', () => {
+                    button.classList.remove('button-hover');
+                });
+            });
+            
+            // Animate nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    link.classList.add('nav-hover');
+                });
+                link.addEventListener('mouseleave', () => {
+                    link.classList.remove('nav-hover');
+                });
             });
         });
     </script>
 </body>
-</html>
+        </html>
