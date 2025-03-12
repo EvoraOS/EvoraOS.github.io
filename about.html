@@ -80,120 +80,63 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: white;
+            background-color: #f0f0f0;
             z-index: 100;
             display: none;
+            font-size: 2.5rem;
         }
         
         .menu-active {
             display: block;
         }
         
-        .menu-close {
+        .close-button {
+            font-size: 3rem;
             padding: 20px;
-            text-align: right;
             cursor: pointer;
-            font-size: 1.5rem;
-        }
-        
-        .menu-container {
-            padding: 0 20px;
-        }
-        
-        .main-menu, .secondary-menu {
-            margin-bottom: 20px;
         }
         
         .menu-item {
             display: flex;
             justify-content: space-between;
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
+            align-items: center;
+            padding: 15px 20px;
         }
         
         .menu-item a {
             text-decoration: none;
-            color: #333;
-            font-size: 1.2rem;
+            color: #000;
+            font-weight: 400;
         }
         
-        .arrow {
-            color: #999;
+        .menu-item .arrow {
+            font-size: 2.5rem;
+            color: #555;
         }
         
         .menu-divider {
-            height: 20px;
+            height: 1px;
+            background-color: #ddd;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        .secondary-menu .menu-item a {
+            color: #555;
         }
         
         .diamond {
             display: inline-block;
-            width: 8px;
-            height: 8px;
-            background-color: blue;
+            width: 18px;
+            height: 18px;
+            background-color: #000;
             transform: rotate(45deg);
-            margin-left: 8px;
+            margin-left: 10px;
+            vertical-align: middle;
         }
     </style>
     <!-- Add Quicksand font -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <header class="site-header">
-        <nav class="main-navigation">
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="apps.html">Apps</a></li>
-                <li><a href="evoraai.html">EvoraAI<span class="diamond"></span></a></li>
-                <li><a href="about.html">About us</a></li>
-                <li><a href="contact.html">Contact us</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Menu Button -->
-    <a href="#" class="menu-trigger">
-        <div class="menu-button">
-            <div class="menu-icon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </a>
-    
-    <!-- Mobile Menu -->
-    <div class="menu-page">
-        <div class="menu-close">
-            <span>X</span>
-        </div>
-        <div class="menu-container">
-            <div class="main-menu">
-                <div class="menu-item">
-                    <a href="index.html">Home</a>
-                    <span class="arrow">></span>
-                </div>
-                <div class="menu-item">
-                    <a href="apps.html">Apps</a>
-                    <span class="arrow">></span>
-                </div>
-                <div class="menu-item">
-                    <a href="evoraai.html">EvoraAi<span class="diamond"></span></a>
-                    <span class="arrow">></span>
-                </div>
-            </div>
-            
-            <div class="menu-divider"></div>
-            
-            <div class="secondary-menu">
-                <div class="menu-item">
-                    <a href="about.html">About us</a>
-                    <span class="arrow">></span>
-                </div>
-                <div class="menu-item">
-                    <a href="contact.html">Contact us</a>
-                    <span class="arrow">></span>
-                </div>
-            </div>
-        </div>
-    </div>
 </head>
 <body>
     <div class="menu-button">
@@ -226,23 +169,55 @@
             <p>apps.evoraos@outlook.com</p>
         </div>
     </div>
+    
+    <!-- Menu Page -->
+    <div class="menu-page">
+        <div class="close-button">X</div>
+        
+        <div class="main-menu">
+            <div class="menu-item">
+                <a href="#">Home</a>
+                <span class="arrow">></span>
+            </div>
+            <div class="menu-item">
+                <a href="#">Apps</a>
+                <span class="arrow">></span>
+            </div>
+            <div class="menu-item">
+                <a href="#">EvoraAi<span class="diamond"></span></a>
+                <span class="arrow">></span>
+            </div>
+        </div>
+        
+        <div class="menu-divider"></div>
+        
+        <div class="secondary-menu">
+            <div class="menu-item">
+                <a href="about.html">About us</a>
+                <span class="arrow">></span>
+            </div>
+            <div class="menu-item">
+                <a href="#">Contect us</a>
+                <span class="arrow">></span>
+            </div>
+        </div>
+    </div>
 
     <!-- Script to toggle menu -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const menuTrigger = document.querySelector('.menu-trigger');
-            const menuClose = document.querySelector('.menu-close');
+            const menuButton = document.querySelector('.menu-button');
+            const closeButton = document.querySelector('.close-button');
             const menuPage = document.querySelector('.menu-page');
             
-            menuTrigger.addEventListener('click', function(e) {
-                e.preventDefault();
+            menuButton.addEventListener('click', function() {
                 menuPage.classList.add('menu-active');
             });
             
-            menuClose.addEventListener('click', function() {
+            closeButton.addEventListener('click', function() {
                 menuPage.classList.remove('menu-active');
             });
         });
     </script>
 </body>
-                       </html>
+</html>
