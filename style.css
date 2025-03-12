@@ -7,6 +7,90 @@
 
 body {
     background-color: white;
+    overflow-x: hidden;
+}
+
+/* Animation Classes */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+    from { transform: translateX(-50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.scroll-reveal {
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+.scroll-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animation variations */
+.scroll-reveal:nth-child(odd) {
+    transform: translateX(-30px);
+}
+
+.scroll-reveal:nth-child(even) {
+    transform: translateX(30px);
+}
+
+/* Menu Animations */
+.fade-in-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.fade-in-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Button Hover Effect */
+.hover-effect {
+    transition: all 0.3s ease;
+}
+
+.button-hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Nav Link Hover */
+.nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #1e90ff;
+    transition: width 0.3s ease;
+}
+
+.nav-hover::after {
+    width: 100%;
 }
 
 /* Site Header and Navigation */
@@ -15,6 +99,7 @@ body {
     padding: 15px 0;
     position: relative;
     z-index: 50;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .main-navigation {
@@ -59,6 +144,12 @@ body {
     background-color: #000;
     transform: rotate(45deg);
     margin-left: 5px;
+    transition: all 0.3s ease;
+}
+
+.nav-hover .diamond {
+    background-color: #1e90ff;
+    transform: rotate(45deg) scale(1.2);
 }
 
 /* Menu Button */
@@ -75,6 +166,13 @@ body {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.menu-button:hover {
+    transform: scale(1.1);
+    background-color: #1e90ff;
 }
 
 .menu-icon {
@@ -90,6 +188,19 @@ body {
     height: 3px;
     background-color: white;
     border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.menu-button:hover .menu-icon span {
+    width: 80%;
+}
+
+.menu-button:hover .menu-icon span:nth-child(1) {
+    transform: translateX(-2px);
+}
+
+.menu-button:hover .menu-icon span:nth-child(3) {
+    transform: translateX(2px);
 }
 
 /* Banner Section */
@@ -102,6 +213,11 @@ body {
     width: 100%;
     height: auto;
     display: block;
+    transition: transform 2s ease;
+}
+
+.banner:hover .banner-image {
+    transform: scale(1.03);
 }
 
 /* Welcome Section */
@@ -116,6 +232,7 @@ body {
     font-weight: 800;
     margin-bottom: 15px;
     color: #000;
+    transition: all 0.5s ease;
 }
 
 .welcome-section p {
@@ -124,6 +241,12 @@ body {
     color: #333;
     max-width: 800px;
     line-height: 1.2;
+    transition: all 0.5s ease;
+}
+
+.welcome-section:hover h2 {
+    color: #1e90ff;
+    transform: translateY(-5px);
 }
 
 /* Learn More Button Outside Blue Section */
@@ -141,6 +264,14 @@ body {
     border-radius: 30px;
     font-size: 24px;
     font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(30, 144, 255, 0.3);
+}
+
+.learn-more-button-outside:hover {
+    background-color: #007be6;
+    transform: translateY(-3px);
+    box-shadow: 0 7px 15px rgba(30, 144, 255, 0.5);
 }
 
 /* Apps Section */
@@ -149,6 +280,7 @@ body {
     padding: 40px 30px 200px;
     color: white;
     min-height: 100vh;
+    position: relative;
 }
 
 .apps-heading {
@@ -169,232 +301,10 @@ body {
     background-color: rgba(255, 255, 255, 0.5);
     margin: 40px 0;
     width: 100%;
+    transition: all 0.5s ease;
 }
 
 .app-item {
     text-align: center;
     padding: 20px 0;
-}
-
-.app-name {
-    font-size: 60px;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
-.app-description {
-    font-size: 36px;
-    margin-bottom: 30px;
-}
-
-.download-button {
-    display: inline-block;
-    background-color: white;
-    color: #1e90ff;
-    text-decoration: none;
-    padding: 15px 50px;
-    border-radius: 30px;
-    font-size: 32px;
-    font-weight: 500;
-}
-
-.coming-soon-container {
-    text-align: left;
-    margin-top: 60px;
-}
-
-.coming-soon-text {
-    font-size: 60px;
-    font-weight: 600;
-}
-
-/* Menu Page Styles */
-.menu-page {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #f0f0f0;
-    z-index: 200;
-    overflow-y: auto;
-    display: none;
-    transition: all 0.3s ease;
-}
-
-.menu-close {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 50px;
-    cursor: pointer;
-    color: #000;
-    z-index: 201;
-}
-
-.menu-container {
-    padding: 100px 30px 30px;
-}
-
-.main-menu, .secondary-menu {
-    margin-bottom: 30px;
-}
-
-.menu-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 0;
-    border-bottom: none;
-    position: relative;
-}
-
-.menu-item a {
-    color: #000;
-    text-decoration: none;
-    font-size: 48px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-}
-
-.arrow {
-    font-size: 48px;
-    color: #000;
-}
-
-.menu-divider {
-    height: 1px;
-    background-color: #ccc;
-    margin: 30px 0;
-    width: 100%;
-}
-
-.secondary-menu .menu-item a {
-    color: #777;
-    font-size: 48px;
-}
-
-.secondary-menu .arrow {
-    color: #777;
-}
-
-/* Show menu when active */
-.menu-active {
-    display: block;
-}
-
-/* Make menu trigger work properly */
-.menu-trigger {
-    text-decoration: none;
-    display: block;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-    .nav-menu {
-        display: none; /* Hide regular navigation on smaller screens */
-    }
-
-    .welcome-section h2 {
-        font-size: 60px;
-    }
-
-    .welcome-section p {
-        font-size: 24px;
-    }
-
-    .apps-heading {
-        font-size: 40px;
-    }
-
-    .feedback-text {
-        font-size: 24px;
-    }
-
-    .app-name {
-        font-size: 36px;
-    }
-
-    .app-description {
-        font-size: 22px;
-    }
-
-    .download-button {
-        font-size: 22px;
-        padding: 12px 40px;
-    }
-
-    .coming-soon-text {
-        font-size: 36px;
-    }
-
-    .learn-more-button-outside {
-        font-size: 18px;
-        padding: 10px 30px;
-    }
-    
-    .menu-item a {
-        font-size: 38px;
-    }
-    
-    .arrow {
-        font-size: 38px;
-    }
-    
-    .secondary-menu .menu-item a {
-        font-size: 38px;
-    }
-}
-
-@media (max-width: 600px) {
-    .welcome-section h2 {
-        font-size: 48px;
-    }
-
-    .welcome-section p {
-        font-size: 18px;
-    }
-
-    .apps-heading {
-        font-size: 32px;
-    }
-
-    .feedback-text {
-        font-size: 18px;
-    }
-
-    .app-name {
-        font-size: 28px;
-    }
-
-    .app-description {
-        font-size: 18px;
-    }
-
-    .download-button {
-        font-size: 18px;
-        padding: 10px 30px;
-    }
-
-    .coming-soon-text {
-        font-size: 28px;
-    }
-
-    .learn-more-button-outside {
-        font-size: 16px;
-        padding: 8px 20px;
-    }
-    
-    .menu-item a {
-        font-size: 32px;
-    }
-    
-    .arrow {
-        font-size: 32px;
-    }
-    
-    .secondary-menu .menu-item a {
-        font-size: 32px;
-    }
-    }
+    transition: all 0.5s ease
