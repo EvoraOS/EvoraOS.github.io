@@ -83,7 +83,6 @@
             background-color: #f0f0f0;
             z-index: 100;
             display: none;
-            font-size: 2.5rem;
         }
         
         .menu-active {
@@ -105,13 +104,31 @@
         
         .menu-item a {
             text-decoration: none;
-            color: #000;
             font-weight: 400;
         }
         
         .menu-item .arrow {
-            font-size: 2.5rem;
             color: #555;
+        }
+        
+        /* Main menu items (Home, Apps, EvoraAi) */
+        .main-menu .menu-item a {
+            font-size: 2.5rem;
+            color: #000;
+        }
+        
+        .main-menu .arrow {
+            font-size: 2.5rem;
+        }
+        
+        /* Secondary menu items (About us, Contact us) */
+        .secondary-menu .menu-item a {
+            font-size: 1.8rem;
+            color: #777;
+        }
+        
+        .secondary-menu .arrow {
+            font-size: 1.8rem;
         }
         
         .menu-divider {
@@ -120,11 +137,6 @@
             width: 100%;
             margin: 20px 0;
         }
-        
-        /* Remove this selector to make secondary menu same as main menu */
-        /* .secondary-menu .menu-item a {
-            color: #555;
-        } */
         
         .diamond {
             display: inline-block;
@@ -166,7 +178,7 @@
         </div>
         
         <div class="contact-section">
-            <h2>Contect us</h2>
+            <h2>Contact us</h2>
             <p>apps.evoraos@outlook.com</p>
         </div>
     </div>
@@ -221,4 +233,4 @@
         });
     </script>
 </body>
-</html>
+    </html>
