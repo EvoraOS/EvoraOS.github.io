@@ -226,21 +226,16 @@
             <p>apps.evoraos@outlook.com</p>
         </div>
     </div>
-    
-    <!-- Menu Page -->
-    <div class="menu-page">
-        <div class="menu-close">
-            <span>X</span>
-        </div>
 
     <!-- Script to toggle menu -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const menuButton = document.querySelector('.menu-button');
+            const menuTrigger = document.querySelector('.menu-trigger');
             const menuClose = document.querySelector('.menu-close');
             const menuPage = document.querySelector('.menu-page');
             
-            menuButton.addEventListener('click', function() {
+            menuTrigger.addEventListener('click', function(e) {
+                e.preventDefault();
                 menuPage.classList.add('menu-active');
             });
             
