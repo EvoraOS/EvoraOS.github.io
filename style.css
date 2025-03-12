@@ -156,6 +156,89 @@ body {
     font-weight: 600;
 }
 
+/* Menu Page Styles - Updated to match the image */
+.menu-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+    z-index: 200;
+    overflow-y: auto;
+    display: none;
+}
+
+.menu-close {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 50px;
+    cursor: pointer;
+    color: #000;
+}
+
+.menu-container {
+    padding: 100px 30px 30px;
+}
+
+.main-menu, .secondary-menu {
+    margin-bottom: 30px;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: none;
+    position: relative;
+}
+
+.menu-item a {
+    color: #000;
+    text-decoration: none;
+    font-size: 48px;
+    font-weight: 500;
+}
+
+.arrow {
+    font-size: 48px;
+    color: #000;
+}
+
+.diamond {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-color: #000;
+    transform: rotate(45deg);
+    margin-left: 10px;
+    position: relative;
+    top: -5px;
+}
+
+.menu-divider {
+    height: 1px;
+    background-color: #ccc;
+    margin: 30px 0;
+    width: 100%;
+}
+
+.secondary-menu .menu-item a {
+    color: #777;
+    font-size: 48px;
+}
+
+.secondary-menu .arrow {
+    color: #777;
+}
+
+/* Show menu when active */
+.menu-active {
+    display: block;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .welcome-section h2 {
@@ -194,6 +277,18 @@ body {
     .learn-more-button-outside {
         font-size: 18px;
         padding: 10px 30px;
+    }
+    
+    .menu-item a {
+        font-size: 38px;
+    }
+    
+    .arrow {
+        font-size: 38px;
+    }
+    
+    .secondary-menu .menu-item a {
+        font-size: 38px;
     }
 }
 
@@ -234,5 +329,17 @@ body {
     .learn-more-button-outside {
         font-size: 16px;
         padding: 8px 20px;
+    }
+    
+    .menu-item a {
+        font-size: 32px;
+    }
+    
+    .arrow {
+        font-size: 32px;
+    }
+    
+    .secondary-menu .menu-item a {
+        font-size: 32px;
     }
     }
