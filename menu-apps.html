@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apps - EvoraOS</title>
+    <style>
+        body {
+            font-family: 'Quicksand', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+        
+        .menu-button {
+            background-color: #333;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px;
+            cursor: pointer;
+        }
+        
+        .menu-icon {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+        }
+        
+        .menu-icon span {
+            height: 3px;
+            width: 100%;
+            background-color: white;
+            border-radius: 3px;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .sub-title {
+            font-size: 2.5rem;
+            margin-top: 0;
+            margin-bottom: 40px;
+        }
+        
+        .app-showcase {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .app-showcase img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 20px;
+        }
+        
+        .download-button {
+            background-color: #3264FF;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .suggestions-button {
+            background-color: #F5F5F5;
+            color: #333;
+            border: none;
+            border-radius: 30px;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        /* Menu styles */
+        .menu-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f0f0f0;
+            z-index: 100;
+            display: none;
+        }
+        
+        .menu-active {
+            display: block;
+        }
+        
+        .close-button {
+            font-size: 3rem;
+            padding: 20px;
+            cursor: pointer;
+        }
+        
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        .menu-item a {
+            text-decoration: none;
+        }
+        
+        .menu-item .arrow {
+            color: #555;
+        }
+        
+        /* Main menu items (Home, Apps, EvoraAi) */
+        .main-menu .menu-item a {
+            font-size: 2rem;
+            color: #000;
+            font-weight: 500;
+        }
+        
+        .main-menu .arrow {
+            font-size: 2.5rem;
+        }
+        
+        /* Secondary menu items (About us, Contact us) */
+        .secondary-menu .menu-item a {
+            font-size: 1.8rem;
+            color: #777;
+            font-weight: 500; /* Bold text for secondary menu */
+        }
+        
+        .secondary-menu .arrow {
+            font-size: 1.8rem;
+        }
+        
+        .menu-divider {
+            height: 1px;
+            background-color: #ddd;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        .diamond {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background-color: #000;
+            transform: rotate(45deg);
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+    </style>
+    <!-- Add Quicksand font -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="menu-button">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    
+    <div class="content">
+        <h1>Apps</h1>
+        <p class="sub-title">Apps that made by us.</p>
+        
+        <div class="app-showcase">
+            <img src="evoc.png" alt="EvoCalculator App">
+        </div>
+        
+        <div class="buttons-container">
+            <a href="#" class="download-button">Download</a>
+            <a href="about.html" class="suggestions-button">Suggestions</a>
+        </div>
+    </div>
+    
+    <!-- Menu Page -->
+    <div class="menu-page">
+        <div class="close-button">X</div>
+        
+        <div class="main-menu">
+            <div class="menu-item">
+                <a href="index.html">Home</a>
+                <span class="arrow">></span>
+            </div>
+            <div class="menu-item">
+                <a href="apps.html">Apps</a>
+                <span class="arrow">></span>
+            </div>
+            <div class="menu-item">
+                <a href="evorai.html">EvoraAi<span class="diamond"></span></a>
+                <span class="arrow">></span>
+            </div>
+        </div>
+        
+        <div class="menu-divider"></div>
+        
+        <div class="secondary-menu">
+            <div class="menu-item">
+                <a href="about.html">About us</a>
+                <span class="arrow">></span>
+            </div>
+            <div class="menu-item">
+                <a href="apps.evoraos@outlook.com">Contact us</a>
+                <span class="arrow">></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script to toggle menu -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuButton = document.querySelector('.menu-button');
+            const closeButton = document.querySelector('.close-button');
+            const menuPage = document.querySelector('.menu-page');
+            
+            menuButton.addEventListener('click', function() {
+                menuPage.classList.add('menu-active');
+            });
+            
+            closeButton.addEventListener('click', function() {
+                menuPage.classList.remove('menu-active');
+            });
+        });
+    </script>
+</body>
+</html>
