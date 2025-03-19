@@ -68,46 +68,48 @@
         }
         
         .buttons-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            gap: 20px;
-            width: 100%;
-            padding: 0 20px;
-            box-sizing: border-box;
-            margin-bottom: 30px; /* Add margin at bottom */
-        }
-        
-        .download-button {
-            background-color: #3264FF;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            padding: 15px 0;
-            font-size: 1.5rem;
-            cursor: pointer;
-            flex: 1;
-            text-align: center;
-            text-decoration: none;
-            white-space: nowrap;
-            display: block;
-            overflow: visible;
-        }
-        
-        .suggestions-button {
-            background-color: #F5F5F5;
-            color: #333;
-            border: none;
-            border-radius: 30px;
-            padding: 15px 0;
-            font-size: 1.5rem;
-            cursor: pointer;
-            flex: 1;
-            text-align: center;
-            text-decoration: none;
-            white-space: nowrap;
-            display: block;
-            overflow: visible;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 20px;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+.download-button, .suggestions-button {
+    background-color: #3264FF;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 30px; /* Increased horizontal padding */
+    font-size: 1.5rem;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    min-width: 120px; /* Ensure minimum width */
+    display: inline-block; /* Changed from block to inline-block */
+    overflow: visible; /* Ensure text is visible */
+}
+
+.suggestions-button {
+    background-color: #F5F5F5;
+    color: #333;
+}
+
+/* Add this for mobile responsiveness */
+@media (max-width: 480px) {
+    .buttons-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .download-button, .suggestions-button {
+        width: 100%;
+        padding: 15px 0;
+    }
         }
         
         /* Menu styles */
