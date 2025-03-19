@@ -42,6 +42,7 @@
         
         .content {
             padding: 20px;
+            padding-bottom: 60px; /* Add extra padding at bottom */
         }
         
         h1 {
@@ -71,6 +72,10 @@
             justify-content: space-between;
             margin-top: 20px;
             gap: 20px;
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+            margin-bottom: 30px; /* Add margin at bottom */
         }
         
         .download-button {
@@ -78,12 +83,15 @@
             color: white;
             border: none;
             border-radius: 30px;
-            padding: 15px 40px;
+            padding: 15px 0;
             font-size: 1.5rem;
             cursor: pointer;
             flex: 1;
             text-align: center;
             text-decoration: none;
+            white-space: nowrap;
+            display: block;
+            overflow: visible;
         }
         
         .suggestions-button {
@@ -91,12 +99,15 @@
             color: #333;
             border: none;
             border-radius: 30px;
-            padding: 15px 40px;
+            padding: 15px 0;
             font-size: 1.5rem;
             cursor: pointer;
             flex: 1;
             text-align: center;
             text-decoration: none;
+            white-space: nowrap;
+            display: block;
+            overflow: visible;
         }
         
         /* Menu styles */
@@ -228,7 +239,7 @@
                 <span class="arrow">></span>
             </div>
             <div class="menu-item">
-                <a href="apps.evoraos@outlook.com">Contact us</a>
+                <a href="contact.html">Contact us</a>
                 <span class="arrow">></span>
             </div>
         </div>
@@ -251,4 +262,4 @@
         });
     </script>
 </body>
-</html>
+                    </html>
