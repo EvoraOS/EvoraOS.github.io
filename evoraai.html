@@ -69,6 +69,12 @@
             border-radius: 5px;
         }
         
+        .star-symbol {
+            margin-left: 15px;
+            font-size: 2.5rem;
+            color: #0099ff;
+        }
+        
         .tagline {
             font-size: 2.2rem;
             line-height: 1.4;
@@ -77,6 +83,8 @@
             color: #4285f4;
             opacity: 0;
             transform: translateY(20px);
+            white-space: normal; /* Allow text to wrap */
+            word-wrap: break-word; /* Break words that are too long */
         }
         
         .divider {
@@ -87,7 +95,7 @@
         }
         
         .about-section h2 {
-            font-size: 3.5rem;
+            font-size: 2.5rem; /* Reduced from 3.5rem */
             margin-bottom: 20px;
             font-weight: bold;
         }
@@ -96,6 +104,8 @@
             font-size: 1.8rem;
             line-height: 1.5;
             margin-bottom: 40px;
+            white-space: normal; /* Allow text to wrap */
+            word-wrap: break-word; /* Break words that are too long */
         }
         
         .features-section {
@@ -208,16 +218,17 @@
             }
         }
         
+        /* Modified typewriter animation to handle wrapping text */
         .typewriter {
-            overflow: hidden;
-            white-space: nowrap;
+            overflow: visible;
+            white-space: normal;
             border-right: 3px solid transparent;
-            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+            animation: typing-fade 3.5s ease-in-out forwards, blink-caret 0.75s step-end infinite;
         }
         
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+        @keyframes typing-fade {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
         
         @keyframes blink-caret {
@@ -236,7 +247,7 @@
     </div>
     
     <div class="content">
-        <h1 class="logo-title">EvoraAi <span class="blue-diamond"></span></h1>
+        <h1 class="logo-title">EvoraAi <span class="blue-diamond"></span><span class="star-symbol">✦</span></h1>
         
         <p class="tagline" id="tagline">
             Powers intelligent, fast, and personalized experiences.
@@ -336,4 +347,4 @@
         });
     </script>
 </body>
-</html>
+    </html>
