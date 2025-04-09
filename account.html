@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EvoraOS Account</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: linear-gradient(to bottom right, #ffffff, #e6f0ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      text-align: center;
+    }
+    
+    h1 {
+      margin-bottom: 20px;
+      color: #2e6ef7;
+    }
+    
+    input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    
+    input[type="email"]:focus, input[type="password"]:focus {
+      border-color: #2e6ef7;
+    }
+    
+    button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 10px;
+      background-color: #2e6ef7;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+      background-color: #1e50c0;
+    }
+    
+    #user-info {
+      margin-top: 20px;
+    }
+    
+    .error-message {
+      color: red;
+      font-size: 0.8rem;
+      margin-top: 5px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>EvoraOS Account</h1>
+    <div id="user-info" style="display: none;">
+      <p id="welcome-msg"></p>
+      <button onclick="logout()">Logout</button>
+    </div>
+    
+    <div id="auth-box">
+      <input type="email" id="email" placeholder="Email">
+      <p id="email-error" class="error-message">Please enter a valid email address</p>
+      <input type="password" id="password" placeholder="Password">
+      <p id="password-error" class="error-message">Password must be at least 6 characters</p>
+      <button onclick="login()">Login</button>
+      <button onclick="signup()">Create Account</button>
+    </div>
+  </div>
+  
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyCWahves5Bhz8q_Xe3EIRcw7DxkgQHYQS4",
+      authDomain: "evoraos.firebaseapp.com",
+      projectId: "evoraos",
+      storageBucket: "evoraos.firebasestorage.app",
+      messagingSenderId: "536499661903",
+      appId: "1:536499661903:web:228d963c70a6a74df88e3a",
+      measurementId: "G-QPJ8KHT5GM"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    
+    // Validate email format
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+    
+    // Validate input fields
+    function validateInputs(email, password) {
+      let isValid = true;
+      
+      // Email validation
+      if (!isValidEmail(email)) {
+        document.getElementById("email-error").style.display = "block";
+        isValid = false;
+      } else {
+        document.getElementById("email-error").style.display = "none";
+      }
+      
+      // Password validation - Firebase requires at least 6 characters
+      if (password.length < 6) {
+        document.getElementById("password-error").style.display = "block";
+        isValid = false;
+      } else {
+        document.getElementById("password-error").style.display = "none";
+      }
+      
+      return isValid;
+    }
+
+    // Store user ID in session storage for profile page
+    function storeUserInfo(user) {
+      sessionStorage.setItem('userId', user.uid);
+      sessionStorage.setItem('userEmail', user.email);
+    }
+
+    // Redirect to profile page
+    function redirectToProfile() {
+      window.location.href = "evoaccountd.html";
+    }
+
+    window.signup = function () {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      
+      if (!validateInputs(email, password)) {
+        return;
+      }
+      
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          storeUserInfo(user);
+          redirectToProfile();
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    };
+
+    window.login = function () {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      
+      if (!validateInputs(email, password)) {
+        return;
+      }
+      
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          storeUserInfo(user);
+          redirectToProfile();
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    };
+
+    window.logout = function () {
+      signOut(auth).then(() => {
+        sessionStorage.removeItem('userId');
+        sessionStorage.removeItem('userEmail');
+        toggleUI(false);
+      });
+    };
+
+    function toggleUI(loggedIn) {
+      document.getElementById("auth-box").style.display = loggedIn ? "none" : "block";
+      document.getElementById("user-info").style.display = loggedIn ? "block" : "none";
+    }
+    
+    // Expose functions to window
+    window.validateInputs = validateInputs;
+    window.isValidEmail = isValidEmail;
+  </script>
+</body>
+</html>
