@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Account - EvoraOS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -16,31 +16,34 @@
     body {
       background: #F5F6F7;
       min-height: 100vh;
-      padding: 20px;
+      padding: 0;
+      display: flex;
+      justify-content: center;
     }
     
     .container {
-      max-width: 800px;
-      margin: 0 auto;
+      max-width: 480px;
+      width: 100%;
+      padding: 0 20px;
     }
     
     header {
-      margin-bottom: 30px;
+      margin-bottom: 16px;
+      padding-top: 60px;
     }
     
     h1 {
       color: #000;
-      font-size: 48px;
+      font-size: 40px;
       font-weight: 600;
-      padding: 20px 0;
     }
     
     .profile-card {
       background: #fff;
-      border-radius: 20px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       display: flex;
       align-items: center;
       cursor: pointer;
@@ -51,19 +54,19 @@
     }
     
     .profile-name {
-      font-size: 28px;
+      font-size: 22px;
       font-weight: 500;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
     
     .profile-edit {
       color: #888;
-      font-size: 16px;
+      font-size: 14px;
     }
     
     .profile-photo {
-      width: 70px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       overflow: hidden;
       background-color: #e6e6e6;
@@ -77,17 +80,17 @@
     
     .menu-card {
       background: #fff;
-      border-radius: 20px;
+      border-radius: 16px;
       overflow: hidden;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
     
     .menu-item {
       display: flex;
       align-items: center;
-      padding: 20px;
-      border-bottom: 1px solid #eee;
+      padding: 16px 20px;
+      border-bottom: 1px solid #f0f0f0;
       cursor: pointer;
     }
     
@@ -96,18 +99,19 @@
     }
     
     .menu-icon {
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-right: 20px;
+      margin-right: 16px;
+      flex-shrink: 0;
     }
     
     .menu-icon img {
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
     }
     
     .menu-icon.eos {
@@ -123,22 +127,24 @@
     }
     
     .menu-text {
-      font-size: 24px;
+      font-size: 18px;
       font-weight: 500;
     }
     
     .signout-btn {
       display: block;
       width: 100%;
-      padding: 20px;
+      padding: 16px;
       border: none;
       border-radius: 25px;
       background-color: #4169E1;
       color: white;
-      font-size: 24px;
+      font-size: 18px;
       font-weight: 500;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.2s ease;
+      margin-top: 8px;
+      margin-bottom: 24px;
     }
     
     .signout-btn:hover {
@@ -151,7 +157,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(230, 230, 230, 0.9);
+      background-color: rgba(245, 246, 247, 0.96);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -160,29 +166,30 @@
     
     .loading-container {
       background-color: white;
-      border-radius: 16px;
-      width: 150px;
-      height: 150px;
+      border-radius: 12px;
+      width: 120px;
+      height: 120px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
     
     .spinner {
-      border: 1px solid transparent;
-      border-top: 1px solid #000;
+      border: 2px solid rgba(65, 105, 225, 0.1);
+      border-top: 2px solid #4169E1;
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
+      width: 32px;
+      height: 32px;
       animation: spin 1s linear infinite;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
     
     .loading-text {
-      font-size: 18px;
-      color: #000;
+      font-size: 16px;
+      color: #333;
     }
     
     @keyframes spin {
@@ -342,4 +349,4 @@
     };
   </script>
 </body>
-</html>
+        </html>
