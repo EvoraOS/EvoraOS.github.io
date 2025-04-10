@@ -44,7 +44,7 @@
       border: none;
       outline: none;
       font-size: 1.2rem;
-      color: #000; /* Changed from #888 to #000 for black text */
+      color: #000;
     }
     
     input::placeholder, select option:first-child {
@@ -52,11 +52,11 @@
     }
     
     select {
-      color: #aaa; /* Default color for unselected dropdown */
+      color: #aaa;
     }
     
     select.selected {
-      color: #000; /* Black text for selected option */
+      color: #000;
     }
     
     .account-text {
@@ -111,11 +111,27 @@
     .signup-fields {
       display: none;
     }
+    
+    .notification {
+      background-color: #e8f5e9;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+      color: #2e7d32;
+      display: none;
+    }
+    
+    .warning {
+      background-color: #fff3e0;
+      color: #e65100;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1 id="form-title">Login</h1>
+    
+    <div id="notification-box" class="notification"></div>
     
     <div id="auth-box">
       <div class="signup-fields">
@@ -152,6 +168,11 @@
       </div>
     </div>
     
+    <div id="email-verification" style="display: none;">
+      <p>We've sent a verification link to your email address. Please check your inbox and verify your email before logging in.</p>
+      <button class="login-btn" onclick="backToLogin()">Back to Login</button>
+    </div>
+    
     <div id="user-info" style="display: none;">
       <p id="welcome-msg"></p>
       <button class="login-btn" onclick="logout()">Logout</button>
@@ -160,7 +181,16 @@
   
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { 
+      getAuth, 
+      signInWithEmailAndPassword, 
+      createUserWithEmailAndPassword, 
+      signOut, 
+      sendEmailVerification,
+      sendSignInLinkToEmail,
+      isSignInWithEmailLink,
+      signInWithEmailLink
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
@@ -175,6 +205,12 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    
+    // Email sign-in action URL
+    const actionCodeSettings = {
+      url: window.location.origin + '/account.html',
+      handleCodeInApp: true
+    };
     
     // Flag to track if in signup mode
     let isSignupMode = false;
@@ -222,6 +258,9 @@
       errorMessages.forEach(msg => {
         msg.style.display = "none";
       });
+      
+      // Reset notification box
+      hideNotification();
     }
     
     // Validate email format
@@ -285,10 +324,11 @@
       return isValid;
     }
 
-    // Store user ID in session storage for profile page
+    // Store user ID and info in session storage
     function storeUserInfo(user, additionalInfo = {}) {
       sessionStorage.setItem('userId', user.uid);
       sessionStorage.setItem('userEmail', user.email);
+      sessionStorage.setItem('emailVerified', user.emailVerified.toString());
       
       if (additionalInfo.name) {
         sessionStorage.setItem('userName', additionalInfo.name);
@@ -303,11 +343,49 @@
       }
     }
 
-    // Redirect to profile page
+    // Redirect to profile page after checking verification
     function redirectToProfile() {
-      window.location.href = "account_page.html";
+      const emailVerified = sessionStorage.getItem('emailVerified') === 'true';
+      
+      if (emailVerified) {
+        window.location.href = "account_page.html";
+      } else {
+        showNotification("Please verify your email before accessing your account.", "warning");
+        sendVerificationEmail();
+      }
     }
-
+    
+    // Send email verification
+    function sendVerificationEmail() {
+      const user = auth.currentUser;
+      if (user && !user.emailVerified) {
+        sendEmailVerification(user)
+          .then(() => {
+            showEmailVerificationScreen();
+          })
+          .catch((error) => {
+            showNotification("Error sending verification email: " + error.message, "warning");
+          });
+      }
+    }
+    
+    // Send email sign-in link
+    function sendEmailSignInLink(email, additionalInfo = {}) {
+      // Store email and additional info for later use
+      localStorage.setItem('emailForSignIn', email);
+      if (additionalInfo.name) localStorage.setItem('nameForSignIn', additionalInfo.name);
+      if (additionalInfo.gender) localStorage.setItem('genderForSignIn', additionalInfo.gender);
+      if (additionalInfo.birthday) localStorage.setItem('birthdayForSignIn', additionalInfo.birthday);
+      
+      sendSignInLinkToEmail(auth, email, actionCodeSettings)
+        .then(() => {
+          showEmailVerificationScreen();
+        })
+        .catch((error) => {
+          showNotification("Error sending sign-in link: " + error.message, "warning");
+        });
+    }
+    
     // Sign up a new user
     function signup() {
       const email = document.getElementById("email").value.trim();
@@ -324,14 +402,14 @@
         .then((userCredential) => {
           const user = userCredential.user;
           storeUserInfo(user, { name, gender, birthday });
-          redirectToProfile();
+          sendVerificationEmail();
         })
         .catch((error) => {
           if (error.code === 'auth/email-already-in-use') {
             document.getElementById("email-error").textContent = "Email already in use. Please login instead.";
             document.getElementById("email-error").style.display = "block";
           } else {
-            alert("Error: " + error.message);
+            showNotification("Error: " + error.message, "warning");
           }
         });
     }
@@ -359,7 +437,7 @@
             document.getElementById("password-error").textContent = "Incorrect password. Please try again.";
             document.getElementById("password-error").style.display = "block";
           } else {
-            alert("Error: " + error.message);
+            showNotification("Error: " + error.message, "warning");
           }
         });
     }
@@ -375,31 +453,128 @@
 
     window.logout = function() {
       signOut(auth).then(() => {
-        sessionStorage.removeItem('userId');
-        sessionStorage.removeItem('userEmail');
-        sessionStorage.removeItem('userName');
-        sessionStorage.removeItem('userGender');
-        sessionStorage.removeItem('userBirthday');
-        toggleUI(false);
+        // Clear all session storage
+        sessionStorage.clear();
+        toggleUI('login');
       });
     };
-
-    function toggleUI(loggedIn) {
-      document.getElementById("auth-box").style.display = loggedIn ? "none" : "block";
-      document.getElementById("user-info").style.display = loggedIn ? "block" : "none";
+    
+    // Show notification message
+    function showNotification(message, type = "") {
+      const notificationBox = document.getElementById("notification-box");
+      notificationBox.textContent = message;
+      notificationBox.style.display = "block";
       
-      if (loggedIn) {
+      if (type === "warning") {
+        notificationBox.classList.add("warning");
+      } else {
+        notificationBox.classList.remove("warning");
+      }
+    }
+    
+    // Hide notification message
+    function hideNotification() {
+      document.getElementById("notification-box").style.display = "none";
+    }
+    
+    // Show email verification screen
+    function showEmailVerificationScreen() {
+      document.getElementById("auth-box").style.display = "none";
+      document.getElementById("email-verification").style.display = "block";
+      document.getElementById("user-info").style.display = "none";
+    }
+    
+    // Back to login from verification screen
+    window.backToLogin = function() {
+      document.getElementById("auth-box").style.display = "block";
+      document.getElementById("email-verification").style.display = "none";
+      document.getElementById("user-info").style.display = "none";
+      isSignupMode = false;
+      toggleFormMode(isSignupMode);
+    };
+
+    function toggleUI(mode) {
+      document.getElementById("auth-box").style.display = mode === 'login' ? "block" : "none";
+      document.getElementById("email-verification").style.display = mode === 'verification' ? "block" : "none";
+      document.getElementById("user-info").style.display = mode === 'loggedin' ? "block" : "none";
+      
+      if (mode === 'loggedin') {
         const email = sessionStorage.getItem('userEmail');
         const name = sessionStorage.getItem('userName');
         document.getElementById("welcome-msg").textContent = "Welcome, " + (name || email);
       }
     }
     
+    // Check for email link sign-in
+    function checkForEmailSignIn() {
+      // Is this an email link sign-in?
+      if (isSignInWithEmailLink(auth, window.location.href)) {
+        let email = localStorage.getItem('emailForSignIn');
+        
+        // If missing email, prompt user for it
+        if (!email) {
+          email = window.prompt('Please provide your email for confirmation');
+        }
+        
+        // Get the additional info
+        const name = localStorage.getItem('nameForSignIn');
+        const gender = localStorage.getItem('genderForSignIn');
+        const birthday = localStorage.getItem('birthdayForSignIn');
+        
+        // Sign in with email link
+        if (email) {
+          signInWithEmailLink(auth, email, window.location.href)
+            .then((result) => {
+              // Clear email from storage
+              localStorage.removeItem('emailForSignIn');
+              localStorage.removeItem('nameForSignIn');
+              localStorage.removeItem('genderForSignIn');
+              localStorage.removeItem('birthdayForSignIn');
+              
+              // User is signed in
+              const user = result.user;
+              
+              // Store user info
+              storeUserInfo(user, { 
+                name: name || '', 
+                gender: gender || '', 
+                birthday: birthday || '' 
+              });
+              
+              // Email is automatically verified when using email link sign-in
+              sessionStorage.setItem('emailVerified', 'true');
+              
+              // Redirect to account page
+              window.location.href = "account_page.html";
+            })
+            .catch((error) => {
+              showNotification("Error signing in with email link: " + error.message, "warning");
+            });
+        }
+      }
+    }
+    
     // Check if user is already logged in
     window.onload = function() {
+      // First check for email link sign-in
+      if (window.location.pathname.includes('account.html')) {
+        checkForEmailSignIn();
+        return;
+      }
+      
+      // Then check for regular logged-in state
       const userId = sessionStorage.getItem('userId');
       if (userId) {
-        toggleUI(true);
+        const emailVerified = sessionStorage.getItem('emailVerified') === 'true';
+        
+        if (emailVerified) {
+          toggleUI('loggedin');
+        } else {
+          // If not verified, show verification screen
+          toggleUI('verification');
+        }
+      } else {
+        toggleUI('login');
       }
     };
     
@@ -407,4 +582,4 @@
     window.toggleFormMode = toggleFormMode;
   </script>
 </body>
-          </html>
+  </html>
