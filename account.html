@@ -36,7 +36,7 @@
       text-align: left;
     }
     
-    input {
+    input, select {
       width: 100%;
       padding: 20px 25px;
       margin-bottom: 20px;
@@ -44,11 +44,19 @@
       border: none;
       outline: none;
       font-size: 1.2rem;
-      color: #888;
+      color: #000; /* Changed from #888 to #000 for black text */
     }
     
-    input::placeholder {
+    input::placeholder, select option:first-child {
       color: #aaa;
+    }
+    
+    select {
+      color: #aaa; /* Default color for unselected dropdown */
+    }
+    
+    select.selected {
+      color: #000; /* Black text for selected option */
     }
     
     .account-text {
@@ -99,13 +107,33 @@
       padding-left: 25px;
       display: none;
     }
+
+    .signup-fields {
+      display: none;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Login</h1>
+    <h1 id="form-title">Login</h1>
     
     <div id="auth-box">
+      <div class="signup-fields">
+        <input type="text" id="fullname" placeholder="Full Name">
+        <p id="name-error" class="error-message">Please enter your full name</p>
+        
+        <select id="gender">
+          <option value="" disabled selected>Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+        <p id="gender-error" class="error-message">Please select your gender</p>
+        
+        <input type="date" id="birthday" placeholder="Birthday">
+        <p id="birthday-error" class="error-message">Please enter a valid date of birth</p>
+      </div>
+      
       <input type="email" id="email" placeholder="enter your email">
       <p id="email-error" class="error-message">Please enter a valid email address</p>
       
@@ -113,11 +141,11 @@
       <p id="password-error" class="error-message">Password must be at least 6 characters</p>
       
       <div class="account-text">
-        <span>You Don't have account</span>
+        <span id="account-prompt">You Don't have account</span>
         <a href="#" id="signup-link">Continue here</a>
       </div>
       
-      <button class="login-btn" onclick="login()">Login</button>
+      <button class="login-btn" onclick="authenticate()">Login</button>
       
       <div class="powered-by">
         <span>Powered by </span>&nbsp;<span class="evo-text">Evo</span><span>raOS</span>
@@ -156,20 +184,45 @@
       e.preventDefault();
       isSignupMode = !isSignupMode;
       
-      const loginBtn = document.querySelector(".login-btn");
-      const linkText = document.getElementById("signup-link");
-      const accountText = document.querySelector(".account-text span");
-      
-      if (isSignupMode) {
-        loginBtn.textContent = "Sign Up";
-        linkText.textContent = "Login here";
-        accountText.textContent = "Already have an account? ";
+      toggleFormMode(isSignupMode);
+    });
+
+    // Handle select change to update text color
+    document.getElementById("gender").addEventListener("change", function() {
+      if (this.value) {
+        this.classList.add("selected");
       } else {
-        loginBtn.textContent = "Login";
-        linkText.textContent = "Continue here";
-        accountText.textContent = "You Don't have account ";
+        this.classList.remove("selected");
       }
     });
+
+    function toggleFormMode(isSignup) {
+      const loginBtn = document.querySelector(".login-btn");
+      const linkText = document.getElementById("signup-link");
+      const accountPrompt = document.getElementById("account-prompt");
+      const formTitle = document.getElementById("form-title");
+      const signupFields = document.querySelector(".signup-fields");
+      
+      if (isSignup) {
+        formTitle.textContent = "Create an account";
+        loginBtn.textContent = "Sign Up";
+        linkText.textContent = "Login here";
+        accountPrompt.textContent = "Already have an account? ";
+        signupFields.style.display = "block";
+      } else {
+        formTitle.textContent = "Login";
+        loginBtn.textContent = "Login";
+        linkText.textContent = "Continue here";
+        accountPrompt.textContent = "You Don't have account ";
+        signupFields.style.display = "none";
+      }
+
+      // Reset error messages when toggling form mode
+      const errorMessages = document.querySelectorAll(".error-message");
+      errorMessages.forEach(msg => {
+        msg.style.display = "none";
+      });
+    }
     
     // Validate email format
     function isValidEmail(email) {
@@ -177,13 +230,14 @@
       return emailRegex.test(email);
     }
     
-    // Validate input fields
-    function validateInputs(email, password) {
+    // Validate input fields for login
+    function validateLoginInputs(email, password) {
       let isValid = true;
       
       // Email validation
       if (!isValidEmail(email)) {
         document.getElementById("email-error").style.display = "block";
+        document.getElementById("email-error").textContent = "Please enter a valid email address";
         isValid = false;
       } else {
         document.getElementById("email-error").style.display = "none";
@@ -200,10 +254,53 @@
       return isValid;
     }
 
+    // Validate signup fields
+    function validateSignupInputs(name, gender, birthday, email, password) {
+      let isValid = validateLoginInputs(email, password);
+      
+      // Name validation
+      if (!name || name.trim() === '') {
+        document.getElementById("name-error").style.display = "block";
+        isValid = false;
+      } else {
+        document.getElementById("name-error").style.display = "none";
+      }
+      
+      // Gender validation
+      if (!gender || gender === '') {
+        document.getElementById("gender-error").style.display = "block";
+        isValid = false;
+      } else {
+        document.getElementById("gender-error").style.display = "none";
+      }
+      
+      // Birthday validation
+      if (!birthday) {
+        document.getElementById("birthday-error").style.display = "block";
+        isValid = false;
+      } else {
+        document.getElementById("birthday-error").style.display = "none";
+      }
+      
+      return isValid;
+    }
+
     // Store user ID in session storage for profile page
-    function storeUserInfo(user) {
+    function storeUserInfo(user, additionalInfo = {}) {
       sessionStorage.setItem('userId', user.uid);
       sessionStorage.setItem('userEmail', user.email);
+      
+      if (additionalInfo.name) {
+        sessionStorage.setItem('userName', additionalInfo.name);
+      }
+      
+      if (additionalInfo.gender) {
+        sessionStorage.setItem('userGender', additionalInfo.gender);
+      }
+      
+      if (additionalInfo.birthday) {
+        sessionStorage.setItem('userBirthday', additionalInfo.birthday);
+      }
     }
 
     // Redirect to profile page
@@ -211,35 +308,40 @@
       window.location.href = "account_page.html";
     }
 
-    window.signup = function () {
+    // Sign up a new user
+    function signup() {
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
+      const name = document.getElementById("fullname").value.trim();
+      const gender = document.getElementById("gender").value;
+      const birthday = document.getElementById("birthday").value;
       
-      if (!validateInputs(email, password)) {
+      if (!validateSignupInputs(name, gender, birthday, email, password)) {
         return;
       }
       
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          storeUserInfo(user);
+          storeUserInfo(user, { name, gender, birthday });
           redirectToProfile();
         })
         .catch((error) => {
-          alert("Error: " + error.message);
+          if (error.code === 'auth/email-already-in-use') {
+            document.getElementById("email-error").textContent = "Email already in use. Please login instead.";
+            document.getElementById("email-error").style.display = "block";
+          } else {
+            alert("Error: " + error.message);
+          }
         });
-    };
+    }
 
-    window.login = function () {
+    // Login an existing user
+    function login() {
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
       
-      if (!validateInputs(email, password)) {
-        return;
-      }
-      
-      if (isSignupMode) {
-        signup();
+      if (!validateLoginInputs(email, password)) {
         return;
       }
       
@@ -250,14 +352,34 @@
           redirectToProfile();
         })
         .catch((error) => {
-          alert("Error: " + error.message);
+          if (error.code === 'auth/user-not-found') {
+            document.getElementById("email-error").textContent = "No account found with this email. Please sign up.";
+            document.getElementById("email-error").style.display = "block";
+          } else if (error.code === 'auth/wrong-password') {
+            document.getElementById("password-error").textContent = "Incorrect password. Please try again.";
+            document.getElementById("password-error").style.display = "block";
+          } else {
+            alert("Error: " + error.message);
+          }
         });
+    }
+
+    // Main authentication function
+    window.authenticate = function() {
+      if (isSignupMode) {
+        signup();
+      } else {
+        login();
+      }
     };
 
-    window.logout = function () {
+    window.logout = function() {
       signOut(auth).then(() => {
         sessionStorage.removeItem('userId');
         sessionStorage.removeItem('userEmail');
+        sessionStorage.removeItem('userName');
+        sessionStorage.removeItem('userGender');
+        sessionStorage.removeItem('userBirthday');
         toggleUI(false);
       });
     };
@@ -267,7 +389,9 @@
       document.getElementById("user-info").style.display = loggedIn ? "block" : "none";
       
       if (loggedIn) {
-        document.getElementById("welcome-msg").textContent = "Welcome, " + sessionStorage.getItem('userEmail');
+        const email = sessionStorage.getItem('userEmail');
+        const name = sessionStorage.getItem('userName');
+        document.getElementById("welcome-msg").textContent = "Welcome, " + (name || email);
       }
     }
     
@@ -280,8 +404,7 @@
     };
     
     // Expose functions to window
-    window.validateInputs = validateInputs;
-    window.isValidEmail = isValidEmail;
+    window.toggleFormMode = toggleFormMode;
   </script>
 </body>
-</html>
+          </html>
