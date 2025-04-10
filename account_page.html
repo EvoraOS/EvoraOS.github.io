@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account - EvoraOS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+      background: #F5F6F7;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    header {
+      margin-bottom: 30px;
+    }
+    
+    h1 {
+      color: #000;
+      font-size: 48px;
+      font-weight: 600;
+      padding: 20px 0;
+    }
+    
+    .profile-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    
+    .profile-info {
+      flex-grow: 1;
+    }
+    
+    .profile-name {
+      font-size: 28px;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    
+    .profile-edit {
+      color: #888;
+      font-size: 16px;
+    }
+    
+    .profile-photo {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: #e6e6e6;
+    }
+    
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .menu-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+    
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+    
+    .menu-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 20px;
+    }
+    
+    .menu-icon img {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .menu-icon.eos {
+      background-color: #4169E1;
+    }
+    
+    .menu-icon.help {
+      background-color: #FFD700;
+    }
+    
+    .menu-icon.about {
+      background-color: #32CD32;
+    }
+    
+    .menu-text {
+      font-size: 24px;
+      font-weight: 500;
+    }
+    
+    .signout-btn {
+      display: block;
+      width: 100%;
+      padding: 20px;
+      border: none;
+      border-radius: 25px;
+      background-color: #4169E1;
+      color: white;
+      font-size: 24px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .signout-btn:hover {
+      background-color: #3153b9;
+    }
+    
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(230, 230, 230, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    
+    .loading-container {
+      background-color: white;
+      border-radius: 16px;
+      width: 150px;
+      height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .spinner {
+      border: 1px solid transparent;
+      border-top: 1px solid #000;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+    
+    .loading-text {
+      font-size: 18px;
+      color: #000;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="main-content" style="display: none;">
+    <header>
+      <h1>Account</h1>
+    </header>
+    
+    <div class="profile-card" onclick="goToProfile()">
+      <div class="profile-info">
+        <div class="profile-name" id="user-name">Hi, (User name)</div>
+        <div class="profile-edit">Click here for edit information</div>
+      </div>
+      <div class="profile-photo">
+        <img id="profile-photo" src="evoprofile.png" alt="Profile Photo">
+      </div>
+    </div>
+    
+    <div class="menu-card">
+      <div class="menu-item" onclick="goToService()">
+        <div class="menu-icon eos">
+          <img src="evoraos_service.png" alt="EvoraOS Service">
+        </div>
+        <div class="menu-text">EvoraOS service</div>
+      </div>
+      
+      <div class="menu-item" onclick="goToFeedback()">
+        <div class="menu-icon help">
+          <img src="feedback.png" alt="Help & Feedback">
+        </div>
+        <div class="menu-text">Help & Feedback</div>
+      </div>
+      
+      <div class="menu-item" onclick="goToAbout()">
+        <div class="menu-icon about">
+          <img src="account_about.png" alt="About">
+        </div>
+        <div class="menu-text">About</div>
+      </div>
+    </div>
+    
+    <button class="signout-btn" onclick="logout()">Signout</button>
+  </div>
+  
+  <!-- Loading overlay -->
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="loading-container">
+      <div class="spinner"></div>
+      <div class="loading-text">Loading...</div>
+    </div>
+  </div>
+  
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCWahves5Bhz8q_Xe3EIRcw7DxkgQHYQS4",
+      authDomain: "evoraos.firebaseapp.com",
+      projectId: "evoraos",
+      storageBucket: "evoraos.firebasestorage.app",
+      messagingSenderId: "536499661903",
+      appId: "1:536499661903:web:228d963c70a6a74df88e3a",
+      measurementId: "G-QPJ8KHT5GM"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+    
+    let currentUser = null;
+    
+    // Check authentication state
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        currentUser = user;
+        loadUserProfile(user.uid);
+      } else {
+        // Redirect to login if not authenticated
+        window.location.href = "account.html";
+      }
+    });
+    
+    // Load user profile data from Firestore
+    async function loadUserProfile(userId) {
+      try {
+        const docRef = doc(db, "users", userId);
+        const docSnap = await getDoc(docRef);
+        
+        // Default user name
+        let userName = "(User name)";
+        let photoURL = "evoprofile.png";
+        
+        // If user profile exists in Firestore
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          
+          // Get user name if available
+          if (data.name) {
+            userName = data.name;
+          }
+          
+          // Get profile photo if available
+          if (data.photoURL) {
+            photoURL = data.photoURL;
+          }
+        }
+        
+        // Update UI with user data
+        document.getElementById("user-name").textContent = `Hi, ${userName}`;
+        document.getElementById("profile-photo").src = photoURL;
+        
+        // Show main content
+        document.getElementById("loading-overlay").style.display = "none";
+        document.getElementById("main-content").style.display = "block";
+        
+      } catch (error) {
+        console.error("Error loading user profile: ", error);
+      }
+    }
+    
+    // Navigation functions
+    window.goToProfile = function() {
+      window.location.href = "evoaccountd.html";
+    };
+    
+    window.goToService = function() {
+      window.location.href = "evoraos_service.html";
+    };
+    
+    window.goToFeedback = function() {
+      window.location.href = "mailto:account.support.evoraos@outlook.com";
+    };
+    
+    window.goToAbout = function() {
+      window.location.href = "account_about.html";
+    };
+    
+    // Logout function
+    window.logout = function() {
+      signOut(auth).then(() => {
+        window.location.href = "account.html";
+      }).catch((error) => {
+        console.error("Error signing out: ", error);
+      });
+    };
+  </script>
+</body>
+</html>
