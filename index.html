@@ -12,29 +12,33 @@
     <link rel="apple-touch-icon" href="icon.jpg">
     <link rel="icon" type="image/jpeg" href="icon.jpg">
     <style>
-        /* Additional styles for auth components */
+        /* Authentication UI styles */
         .auth-container {
-            position: absolute;
+            position: fixed;
             top: 20px;
             right: 20px;
             display: flex;
             align-items: center;
-            z-index: 1000;
+            gap: 15px;
+            z-index: 100;
         }
         
-        .auth-container .sign-in-button {
+        .sign-in-button {
             background-color: #333;
             color: white;
             border: none;
-            border-radius: 25px;
-            padding: 12px 25px;
-            font-size: 16px;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: 500;
             font-family: 'Quicksand', sans-serif;
             cursor: pointer;
             transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
         }
         
-        .auth-container .sign-in-button:hover {
+        .sign-in-button:hover {
             background-color: #444;
         }
         
@@ -45,17 +49,25 @@
         }
         
         .message-icon {
-            width: 24px;
-            height: 24px;
+            width: 50px;
+            height: 50px;
             cursor: pointer;
+            border-radius: 50%;
         }
         
         .profile-photo {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             cursor: pointer;
             background-color: #f1f1f1;
+        }
+        
+        /* Match the star style in EvoraAI menu item */
+        .star {
+            font-size: 14px;
+            margin-left: 2px;
+            color: #1e90ff;
         }
     </style>
 </head>
@@ -64,6 +76,17 @@
     <div class="auth-container" id="auth-container">
         <!-- This will be dynamically populated based on auth state -->
     </div>
+
+    <!-- Menu Button -->
+    <a href="#" class="menu-trigger">
+        <div class="menu-button">
+            <div class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </a>
     
     <!-- Navigation Header -->
     <header class="site-header">
@@ -77,17 +100,6 @@
             </ul>
         </nav>
     </header>
-
-    <!-- Menu Button -->
-    <a href="#" class="menu-trigger">
-        <div class="menu-button">
-            <div class="menu-icon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </a>
     
     <!-- Mobile Menu -->
     <div class="menu-page">
@@ -201,7 +213,7 @@
         // Render sign in button for logged out users
         function renderSignInButton() {
             authContainer.innerHTML = `
-                <button class="sign-in-button" onclick="window.location.href='account_page.html'">Sign in</button>
+                <a href="account_page.html" class="sign-in-button">Sign in</a>
             `;
         }
         
