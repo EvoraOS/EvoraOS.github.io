@@ -8,11 +8,63 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0099ff">
-<link rel="apple-touch-icon" href="icon.jpg">
+    <meta name="theme-color" content="#0099ff">
+    <link rel="apple-touch-icon" href="icon.jpg">
     <link rel="icon" type="image/jpeg" href="icon.jpg">
+    <style>
+        /* Additional styles for auth components */
+        .auth-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .auth-container .sign-in-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-family: 'Quicksand', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .auth-container .sign-in-button:hover {
+            background-color: #444;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .message-icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+        
+        .profile-photo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            background-color: #f1f1f1;
+        }
+    </style>
 </head>
 <body>
+    <!-- Authentication Container -->
+    <div class="auth-container" id="auth-container">
+        <!-- This will be dynamically populated based on auth state -->
+    </div>
+    
     <!-- Navigation Header -->
     <header class="site-header">
         <nav class="main-navigation">
@@ -88,7 +140,6 @@
     <div class="learn-more-container-outside">
         <a href="about.html" class="learn-more-button-outside">Learn More</a>
     </div>
-    <button onclick="signInWithGitHub()">Sign in with GitHub</button>
 
     <!-- Apps Section -->
     <div class="apps-section">
@@ -110,6 +161,61 @@
         </div>
     </div>
 
+    <!-- Firebase Scripts -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { 
+            getAuth, 
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCWahves5Bhz8q_Xe3EIRcw7DxkgQHYQS4",
+            authDomain: "evoraos.firebaseapp.com",
+            projectId: "evoraos",
+            storageBucket: "evoraos.firebasestorage.app",
+            messagingSenderId: "536499661903",
+            appId: "1:536499661903:web:228d963c70a6a74df88e3a",
+            measurementId: "G-QPJ8KHT5GM"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        
+        // DOM elements
+        const authContainer = document.getElementById('auth-container');
+        
+        // Check authentication state
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in
+                renderUserProfile();
+            } else {
+                // User is signed out
+                renderSignInButton();
+            }
+        });
+        
+        // Render sign in button for logged out users
+        function renderSignInButton() {
+            authContainer.innerHTML = `
+                <button class="sign-in-button" onclick="window.location.href='account_page.html'">Sign in</button>
+            `;
+        }
+        
+        // Render user profile for logged in users
+        function renderUserProfile() {
+            authContainer.innerHTML = `
+                <div class="user-profile">
+                    <img src="message.png" alt="Messages" class="message-icon" onclick="window.location.href='message.html'">
+                    <img src="evoprofile.png" alt="Profile" class="profile-photo" onclick="window.location.href='account_page.html'">
+                </div>
+            `;
+        }
+    </script>
+
     <!-- Add JavaScript at the end of the body -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -128,4 +234,4 @@
         });
     </script>
 </body>
-</html>
+                        </html>
