@@ -118,11 +118,27 @@
       margin-bottom: 20px;
       display: none;
     }
+    
+    .notification {
+      background-color: #e8f5e9;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+      color: #2e7d32;
+      display: none;
+    }
+    
+    .warning {
+      background-color: #fff3e0;
+      color: #e65100;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1 id="page-title">Login</h1>
+    
+    <div id="notification-box" class="notification"></div>
     
     <div id="auth-box">
       <input type="email" id="email" placeholder="enter your email">
@@ -131,7 +147,7 @@
       <input type="password" id="password" placeholder="Password">
       <p id="password-error" class="error-message">Password must be at least 8 characters with at least one letter</p>
       
-      <div class="forgot-password">
+      <div class="forgot-password" id="forgot-password-container">
         <a href="#" id="forgot-password-link">Forgot Password?</a>
       </div>
       
@@ -149,6 +165,11 @@
       <p id="reset-success" class="success-message">Password reset email sent! Please check your inbox.</p>
     </div>
     
+    <div id="email-verification" style="display: none;">
+      <p>We've sent a verification link to your email address. Please check your inbox and verify your email before logging in.</p>
+      <button class="login-btn" id="back-to-login">Back to Login</button>
+    </div>
+    
     <div id="user-info" style="display: none;">
       <p id="welcome-msg"></p>
       <button class="login-btn" id="logout-button">Logout</button>
@@ -157,7 +178,14 @@
   
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { 
+      getAuth, 
+      signInWithEmailAndPassword, 
+      createUserWithEmailAndPassword, 
+      signOut, 
+      sendPasswordResetEmail,
+      sendEmailVerification
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
     // Firebase configuration
     const firebaseConfig = {
@@ -191,6 +219,9 @@
       // Logout button
       document.getElementById("logout-button").addEventListener("click", logoutUser);
       
+      // Back to login button
+      document.getElementById("back-to-login").addEventListener("click", backToLogin);
+      
       // Check if user is already logged in
       checkLoggedInStatus();
     });
@@ -204,18 +235,27 @@
       const linkText = document.getElementById("signup-link");
       const accountText = document.querySelector(".account-text span");
       const pageTitle = document.getElementById("page-title");
+      const forgotPasswordContainer = document.getElementById("forgot-password-container");
       
       if (isSignupMode) {
         pageTitle.textContent = "Create an account";
         authButton.textContent = "Sign Up";
         linkText.textContent = "Login here";
         accountText.textContent = "Already have an account? ";
+        // Hide forgot password link in signup mode
+        forgotPasswordContainer.style.display = "none";
       } else {
         pageTitle.textContent = "Login";
         authButton.textContent = "Login";
         linkText.textContent = "Continue here";
         accountText.textContent = "You Don't have account ";
+        // Show forgot password link in login mode
+        forgotPasswordContainer.style.display = "block";
       }
+      
+      // Hide notification and reset success message when toggling modes
+      hideNotification();
+      document.getElementById("reset-success").style.display = "none";
     }
 
     // Handle forgot password functionality
@@ -240,7 +280,7 @@
           }, 5000);
         })
         .catch((error) => {
-          alert("Error: " + error.message);
+          showNotification("Error: " + error.message, "warning");
         });
     }
     
@@ -271,11 +311,40 @@
         .then((userCredential) => {
           const user = userCredential.user;
           storeUserInfo(user);
-          redirectToProfile();
+          // Send verification email after successful signup
+          sendVerificationEmail(user);
         })
         .catch((error) => {
-          alert("Error: " + error.message);
+          showNotification("Error: " + error.message, "warning");
         });
+    }
+    
+    // Send verification email
+    function sendVerificationEmail(user) {
+      sendEmailVerification(user)
+        .then(() => {
+          // Show verification screen
+          showEmailVerificationScreen();
+        })
+        .catch((error) => {
+          showNotification("Error sending verification email: " + error.message, "warning");
+        });
+    }
+    
+    // Show email verification screen
+    function showEmailVerificationScreen() {
+      document.getElementById("auth-box").style.display = "none";
+      document.getElementById("email-verification").style.display = "block";
+      document.getElementById("user-info").style.display = "none";
+    }
+    
+    // Back to login from verification screen
+    function backToLogin() {
+      document.getElementById("auth-box").style.display = "block";
+      document.getElementById("email-verification").style.display = "none";
+      document.getElementById("user-info").style.display = "none";
+      isSignupMode = false;
+      toggleSignupMode(new Event('click'));
     }
     
     // Login user
@@ -284,10 +353,17 @@
         .then((userCredential) => {
           const user = userCredential.user;
           storeUserInfo(user);
-          redirectToProfile();
+          // Check if email is verified before redirecting to profile
+          if (user.emailVerified) {
+            redirectToProfile();
+          } else {
+            showNotification("Please verify your email before accessing your account.", "warning");
+            // Optionally resend verification email
+            sendVerificationEmail(user);
+          }
         })
         .catch((error) => {
-          alert("Error: " + error.message);
+          showNotification("Error: " + error.message, "warning");
         });
     }
     
@@ -296,9 +372,10 @@
       signOut(auth).then(() => {
         sessionStorage.removeItem('userId');
         sessionStorage.removeItem('userEmail');
-        toggleUI(false);
+        sessionStorage.removeItem('emailVerified');
+        toggleUI('login');
       }).catch((error) => {
-        alert("Error signing out: " + error.message);
+        showNotification("Error signing out: " + error.message, "warning");
       });
     }
     
@@ -340,6 +417,7 @@
     function storeUserInfo(user) {
       sessionStorage.setItem('userId', user.uid);
       sessionStorage.setItem('userEmail', user.email);
+      sessionStorage.setItem('emailVerified', user.emailVerified.toString());
     }
 
     // Redirect to profile page
@@ -347,21 +425,49 @@
       window.location.href = "account_page.html";
     }
 
-    // Toggle UI between logged in and logged out states
-    function toggleUI(loggedIn) {
-      document.getElementById("auth-box").style.display = loggedIn ? "none" : "block";
-      document.getElementById("user-info").style.display = loggedIn ? "block" : "none";
+    // Toggle UI between different states
+    function toggleUI(mode) {
+      document.getElementById("auth-box").style.display = mode === 'login' ? "block" : "none";
+      document.getElementById("email-verification").style.display = mode === 'verification' ? "block" : "none";
+      document.getElementById("user-info").style.display = mode === 'loggedin' ? "block" : "none";
       
-      if (loggedIn) {
+      if (mode === 'loggedin') {
         document.getElementById("welcome-msg").textContent = "Welcome, " + sessionStorage.getItem('userEmail');
       }
+    }
+    
+    // Show notification message
+    function showNotification(message, type = "") {
+      const notificationBox = document.getElementById("notification-box");
+      notificationBox.textContent = message;
+      notificationBox.style.display = "block";
+      
+      if (type === "warning") {
+        notificationBox.classList.add("warning");
+      } else {
+        notificationBox.classList.remove("warning");
+      }
+    }
+    
+    // Hide notification message
+    function hideNotification() {
+      document.getElementById("notification-box").style.display = "none";
     }
     
     // Check if user is already logged in
     function checkLoggedInStatus() {
       const userId = sessionStorage.getItem('userId');
       if (userId) {
-        toggleUI(true);
+        const emailVerified = sessionStorage.getItem('emailVerified') === 'true';
+        
+        if (emailVerified) {
+          toggleUI('loggedin');
+        } else {
+          // If not verified, show verification screen
+          toggleUI('verification');
+        }
+      } else {
+        toggleUI('login');
       }
     }
   </script>
