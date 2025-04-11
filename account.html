@@ -36,7 +36,7 @@
       text-align: left;
     }
     
-    input, select {
+    input {
       width: 100%;
       padding: 20px 25px;
       margin-bottom: 20px;
@@ -44,19 +44,11 @@
       border: none;
       outline: none;
       font-size: 1.2rem;
-      color: #000;
+      color: #888;
     }
     
-    input::placeholder, select option:first-child {
+    input::placeholder {
       color: #aaa;
-    }
-    
-    select {
-      color: #aaa;
-    }
-    
-    select.selected {
-      color: #000;
     }
     
     .account-text {
@@ -71,6 +63,18 @@
       color: #4169E1;
       text-decoration: none;
       margin-left: 5px;
+    }
+
+    .forgot-password {
+      text-align: right;
+      margin-top: -10px;
+      margin-bottom: 20px;
+    }
+    
+    .forgot-password a {
+      color: #4169E1;
+      text-decoration: none;
+      font-size: 0.9rem;
     }
     
     .login-btn {
@@ -108,89 +112,51 @@
       display: none;
     }
 
-    .signup-fields {
-      display: none;
-    }
-    
-    .notification {
-      background-color: #e8f5e9;
-      border-radius: 10px;
-      padding: 15px;
+    .success-message {
+      color: green;
+      font-size: 0.9rem;
       margin-bottom: 20px;
-      color: #2e7d32;
       display: none;
-    }
-    
-    .warning {
-      background-color: #fff3e0;
-      color: #e65100;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1 id="form-title">Login</h1>
-    
-    <div id="notification-box" class="notification"></div>
+    <h1 id="page-title">Login</h1>
     
     <div id="auth-box">
-      <div class="signup-fields">
-        <input type="text" id="fullname" placeholder="Full Name">
-        <p id="name-error" class="error-message">Please enter your full name</p>
-        
-        <select id="gender">
-          <option value="" disabled selected>Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-        <p id="gender-error" class="error-message">Please select your gender</p>
-        
-        <input type="date" id="birthday" placeholder="Birthday">
-        <p id="birthday-error" class="error-message">Please enter a valid date of birth</p>
-      </div>
-      
       <input type="email" id="email" placeholder="enter your email">
       <p id="email-error" class="error-message">Please enter a valid email address</p>
       
       <input type="password" id="password" placeholder="Password">
-      <p id="password-error" class="error-message">Password must be at least 6 characters</p>
+      <p id="password-error" class="error-message">Password must be at least 8 characters with at least one letter</p>
+      
+      <div class="forgot-password">
+        <a href="#" id="forgot-password-link">Forgot Password?</a>
+      </div>
       
       <div class="account-text">
-        <span id="account-prompt">You Don't have account</span>
+        <span>You Don't have account</span>
         <a href="#" id="signup-link">Continue here</a>
       </div>
       
-      <button class="login-btn" onclick="authenticate()">Login</button>
+      <button class="login-btn" onclick="login()">Login</button>
       
       <div class="powered-by">
         <span>Powered by </span>&nbsp;<span class="evo-text">Evo</span><span>raOS</span>
       </div>
     </div>
     
-    <div id="email-verification" style="display: none;">
-      <p>We've sent a verification link to your email address. Please check your inbox and verify your email before logging in.</p>
-      <button class="login-btn" onclick="backToLogin()">Back to Login</button>
-    </div>
-    
     <div id="user-info" style="display: none;">
       <p id="welcome-msg"></p>
+      <p id="reset-success" class="success-message">Password reset email sent! Please check your inbox.</p>
       <button class="login-btn" onclick="logout()">Logout</button>
     </div>
   </div>
   
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { 
-      getAuth, 
-      signInWithEmailAndPassword, 
-      createUserWithEmailAndPassword, 
-      signOut, 
-      sendEmailVerification,
-      sendSignInLinkToEmail,
-      isSignInWithEmailLink,
-      signInWithEmailLink
-    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
@@ -206,12 +172,6 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     
-    // Email sign-in action URL
-    const actionCodeSettings = {
-      url: window.location.origin + '/account.html',
-      handleCodeInApp: true
-    };
-    
     // Flag to track if in signup mode
     let isSignupMode = false;
     
@@ -220,70 +180,70 @@
       e.preventDefault();
       isSignupMode = !isSignupMode;
       
-      toggleFormMode(isSignupMode);
-    });
-
-    // Handle select change to update text color
-    document.getElementById("gender").addEventListener("change", function() {
-      if (this.value) {
-        this.classList.add("selected");
-      } else {
-        this.classList.remove("selected");
-      }
-    });
-
-    function toggleFormMode(isSignup) {
       const loginBtn = document.querySelector(".login-btn");
       const linkText = document.getElementById("signup-link");
-      const accountPrompt = document.getElementById("account-prompt");
-      const formTitle = document.getElementById("form-title");
-      const signupFields = document.querySelector(".signup-fields");
+      const accountText = document.querySelector(".account-text span");
+      const pageTitle = document.getElementById("page-title");
       
-      if (isSignup) {
-        formTitle.textContent = "Create an account";
+      if (isSignupMode) {
+        pageTitle.textContent = "Create an account";
         loginBtn.textContent = "Sign Up";
         linkText.textContent = "Login here";
-        accountPrompt.textContent = "Already have an account? ";
-        signupFields.style.display = "block";
+        accountText.textContent = "Already have an account? ";
       } else {
-        formTitle.textContent = "Login";
+        pageTitle.textContent = "Login";
         loginBtn.textContent = "Login";
         linkText.textContent = "Continue here";
-        accountPrompt.textContent = "You Don't have account ";
-        signupFields.style.display = "none";
+        accountText.textContent = "You Don't have account ";
       }
+    });
 
-      // Reset error messages when toggling form mode
-      const errorMessages = document.querySelectorAll(".error-message");
-      errorMessages.forEach(msg => {
-        msg.style.display = "none";
-      });
+    // Setup forgot password link
+    document.getElementById("forgot-password-link").addEventListener("click", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
       
-      // Reset notification box
-      hideNotification();
-    }
+      if (!isValidEmail(email)) {
+        document.getElementById("email-error").style.display = "block";
+        return;
+      }
+      
+      document.getElementById("email-error").style.display = "none";
+      
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          alert("Password reset email sent to " + email + ". Please check your inbox.");
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    });
     
     // Validate email format
     function isValidEmail(email) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return emailRegex.test(email);
     }
+
+    // Validate password - at least 8 characters and contains at least one letter
+    function isValidPassword(password) {
+      return password.length >= 8 && /[a-zA-Z]/.test(password);
+    }
     
-    // Validate input fields for login
-    function validateLoginInputs(email, password) {
+    // Validate input fields
+    function validateInputs(email, password) {
       let isValid = true;
       
       // Email validation
       if (!isValidEmail(email)) {
         document.getElementById("email-error").style.display = "block";
-        document.getElementById("email-error").textContent = "Please enter a valid email address";
         isValid = false;
       } else {
         document.getElementById("email-error").style.display = "none";
       }
       
-      // Password validation - Firebase requires at least 6 characters
-      if (password.length < 6) {
+      // Password validation - at least 8 characters and one letter
+      if (!isValidPassword(password)) {
         document.getElementById("password-error").style.display = "block";
         isValid = false;
       } else {
@@ -293,134 +253,54 @@
       return isValid;
     }
 
-    // Validate signup fields
-    function validateSignupInputs(name, gender, birthday, email, password) {
-      let isValid = validateLoginInputs(email, password);
-      
-      // Name validation
-      if (!name || name.trim() === '') {
-        document.getElementById("name-error").style.display = "block";
-        isValid = false;
-      } else {
-        document.getElementById("name-error").style.display = "none";
-      }
-      
-      // Gender validation
-      if (!gender || gender === '') {
-        document.getElementById("gender-error").style.display = "block";
-        isValid = false;
-      } else {
-        document.getElementById("gender-error").style.display = "none";
-      }
-      
-      // Birthday validation
-      if (!birthday) {
-        document.getElementById("birthday-error").style.display = "block";
-        isValid = false;
-      } else {
-        document.getElementById("birthday-error").style.display = "none";
-      }
-      
-      return isValid;
-    }
-
-    // Store user ID and info in session storage
-    function storeUserInfo(user, additionalInfo = {}) {
+    // Store user ID in session storage for profile page
+    function storeUserInfo(user) {
       sessionStorage.setItem('userId', user.uid);
       sessionStorage.setItem('userEmail', user.email);
-      sessionStorage.setItem('emailVerified', user.emailVerified.toString());
-      
-      if (additionalInfo.name) {
-        sessionStorage.setItem('userName', additionalInfo.name);
-      }
-      
-      if (additionalInfo.gender) {
-        sessionStorage.setItem('userGender', additionalInfo.gender);
-      }
-      
-      if (additionalInfo.birthday) {
-        sessionStorage.setItem('userBirthday', additionalInfo.birthday);
-      }
     }
 
-    // Redirect to profile page after checking verification
+    // Redirect to profile page
     function redirectToProfile() {
-      const emailVerified = sessionStorage.getItem('emailVerified') === 'true';
-      
-      if (emailVerified) {
-        window.location.href = "account_page.html";
-      } else {
-        showNotification("Please verify your email before accessing your account.", "warning");
-        sendVerificationEmail();
-      }
+      window.location.href = "account_page.html";
     }
-    
-    // Send email verification
-    function sendVerificationEmail() {
-      const user = auth.currentUser;
-      if (user && !user.emailVerified) {
-        sendEmailVerification(user)
-          .then(() => {
-            showEmailVerificationScreen();
-          })
-          .catch((error) => {
-            showNotification("Error sending verification email: " + error.message, "warning");
-          });
-      }
-    }
-    
-    // Send email sign-in link
-    function sendEmailSignInLink(email, additionalInfo = {}) {
-      // Store email and additional info for later use
-      localStorage.setItem('emailForSignIn', email);
-      if (additionalInfo.name) localStorage.setItem('nameForSignIn', additionalInfo.name);
-      if (additionalInfo.gender) localStorage.setItem('genderForSignIn', additionalInfo.gender);
-      if (additionalInfo.birthday) localStorage.setItem('birthdayForSignIn', additionalInfo.birthday);
-      
-      sendSignInLinkToEmail(auth, email, actionCodeSettings)
-        .then(() => {
-          showEmailVerificationScreen();
-        })
-        .catch((error) => {
-          showNotification("Error sending sign-in link: " + error.message, "warning");
-        });
-    }
-    
-    // Sign up a new user
-    function signup() {
+
+    window.signup = function () {
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
-      const name = document.getElementById("fullname").value.trim();
-      const gender = document.getElementById("gender").value;
-      const birthday = document.getElementById("birthday").value;
       
-      if (!validateSignupInputs(name, gender, birthday, email, password)) {
+      if (!validateInputs(email, password)) {
         return;
       }
       
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          storeUserInfo(user, { name, gender, birthday });
-          sendVerificationEmail();
+          storeUserInfo(user);
+          redirectToProfile();
         })
         .catch((error) => {
-          if (error.code === 'auth/email-already-in-use') {
-            document.getElementById("email-error").textContent = "Email already in use. Please login instead.";
-            document.getElementById("email-error").style.display = "block";
-          } else {
-            showNotification("Error: " + error.message, "warning");
-          }
+          alert("Error: " + error.message);
         });
-    }
+    };
 
-    // Login an existing user
-    function login() {
+    window.login = function () {
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
       
-      if (!validateLoginInputs(email, password)) {
+      if (isSignupMode) {
+        if (!validateInputs(email, password)) {
+          return;
+        }
+        signup();
         return;
+      } else {
+        // For login, we still validate email format but don't need to check password complexity
+        if (!isValidEmail(email)) {
+          document.getElementById("email-error").style.display = "block";
+          return;
+        } else {
+          document.getElementById("email-error").style.display = "none";
+        }
       }
       
       signInWithEmailAndPassword(auth, email, password)
@@ -430,156 +310,39 @@
           redirectToProfile();
         })
         .catch((error) => {
-          if (error.code === 'auth/user-not-found') {
-            document.getElementById("email-error").textContent = "No account found with this email. Please sign up.";
-            document.getElementById("email-error").style.display = "block";
-          } else if (error.code === 'auth/wrong-password') {
-            document.getElementById("password-error").textContent = "Incorrect password. Please try again.";
-            document.getElementById("password-error").style.display = "block";
-          } else {
-            showNotification("Error: " + error.message, "warning");
-          }
+          alert("Error: " + error.message);
         });
-    }
-
-    // Main authentication function
-    window.authenticate = function() {
-      if (isSignupMode) {
-        signup();
-      } else {
-        login();
-      }
     };
 
-    window.logout = function() {
+    window.logout = function () {
       signOut(auth).then(() => {
-        // Clear all session storage
-        sessionStorage.clear();
-        toggleUI('login');
+        sessionStorage.removeItem('userId');
+        sessionStorage.removeItem('userEmail');
+        toggleUI(false);
       });
     };
-    
-    // Show notification message
-    function showNotification(message, type = "") {
-      const notificationBox = document.getElementById("notification-box");
-      notificationBox.textContent = message;
-      notificationBox.style.display = "block";
-      
-      if (type === "warning") {
-        notificationBox.classList.add("warning");
-      } else {
-        notificationBox.classList.remove("warning");
-      }
-    }
-    
-    // Hide notification message
-    function hideNotification() {
-      document.getElementById("notification-box").style.display = "none";
-    }
-    
-    // Show email verification screen
-    function showEmailVerificationScreen() {
-      document.getElementById("auth-box").style.display = "none";
-      document.getElementById("email-verification").style.display = "block";
-      document.getElementById("user-info").style.display = "none";
-    }
-    
-    // Back to login from verification screen
-    window.backToLogin = function() {
-      document.getElementById("auth-box").style.display = "block";
-      document.getElementById("email-verification").style.display = "none";
-      document.getElementById("user-info").style.display = "none";
-      isSignupMode = false;
-      toggleFormMode(isSignupMode);
-    };
 
-    function toggleUI(mode) {
-      document.getElementById("auth-box").style.display = mode === 'login' ? "block" : "none";
-      document.getElementById("email-verification").style.display = mode === 'verification' ? "block" : "none";
-      document.getElementById("user-info").style.display = mode === 'loggedin' ? "block" : "none";
+    function toggleUI(loggedIn) {
+      document.getElementById("auth-box").style.display = loggedIn ? "none" : "block";
+      document.getElementById("user-info").style.display = loggedIn ? "block" : "none";
       
-      if (mode === 'loggedin') {
-        const email = sessionStorage.getItem('userEmail');
-        const name = sessionStorage.getItem('userName');
-        document.getElementById("welcome-msg").textContent = "Welcome, " + (name || email);
-      }
-    }
-    
-    // Check for email link sign-in
-    function checkForEmailSignIn() {
-      // Is this an email link sign-in?
-      if (isSignInWithEmailLink(auth, window.location.href)) {
-        let email = localStorage.getItem('emailForSignIn');
-        
-        // If missing email, prompt user for it
-        if (!email) {
-          email = window.prompt('Please provide your email for confirmation');
-        }
-        
-        // Get the additional info
-        const name = localStorage.getItem('nameForSignIn');
-        const gender = localStorage.getItem('genderForSignIn');
-        const birthday = localStorage.getItem('birthdayForSignIn');
-        
-        // Sign in with email link
-        if (email) {
-          signInWithEmailLink(auth, email, window.location.href)
-            .then((result) => {
-              // Clear email from storage
-              localStorage.removeItem('emailForSignIn');
-              localStorage.removeItem('nameForSignIn');
-              localStorage.removeItem('genderForSignIn');
-              localStorage.removeItem('birthdayForSignIn');
-              
-              // User is signed in
-              const user = result.user;
-              
-              // Store user info
-              storeUserInfo(user, { 
-                name: name || '', 
-                gender: gender || '', 
-                birthday: birthday || '' 
-              });
-              
-              // Email is automatically verified when using email link sign-in
-              sessionStorage.setItem('emailVerified', 'true');
-              
-              // Redirect to account page
-              window.location.href = "account_page.html";
-            })
-            .catch((error) => {
-              showNotification("Error signing in with email link: " + error.message, "warning");
-            });
-        }
+      if (loggedIn) {
+        document.getElementById("welcome-msg").textContent = "Welcome, " + sessionStorage.getItem('userEmail');
       }
     }
     
     // Check if user is already logged in
     window.onload = function() {
-      // First check for email link sign-in
-      if (window.location.pathname.includes('account.html')) {
-        checkForEmailSignIn();
-        return;
-      }
-      
-      // Then check for regular logged-in state
       const userId = sessionStorage.getItem('userId');
       if (userId) {
-        const emailVerified = sessionStorage.getItem('emailVerified') === 'true';
-        
-        if (emailVerified) {
-          toggleUI('loggedin');
-        } else {
-          // If not verified, show verification screen
-          toggleUI('verification');
-        }
-      } else {
-        toggleUI('login');
+        toggleUI(true);
       }
     };
     
     // Expose functions to window
-    window.toggleFormMode = toggleFormMode;
+    window.validateInputs = validateInputs;
+    window.isValidEmail = isValidEmail;
+    window.isValidPassword = isValidPassword;
   </script>
 </body>
-  </html>
+</html>
