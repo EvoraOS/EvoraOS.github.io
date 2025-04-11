@@ -45,22 +45,33 @@
         .user-profile {
             display: flex;
             align-items: center;
-            gap: 15px;
+            position: relative;
+        }
+        
+        .profile-bg {
+            position: absolute;
+            width: 120px;
+            height: 50px;
+            background-color: #F5F6F7;
+            border-radius: 25px;
+            z-index: 1;
         }
         
         .message-icon {
             width: 50px;
             height: 50px;
             cursor: pointer;
-            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+            margin-right: -10px;
         }
         
         .profile-photo {
             width: 50px;
             height: 50px;
-            border-radius: 50%;
             cursor: pointer;
-            background-color: #f1f1f1;
+            position: relative;
+            z-index: 2;
         }
         
         /* Match the star style in EvoraAI menu item */
@@ -221,6 +232,7 @@
         function renderUserProfile() {
             authContainer.innerHTML = `
                 <div class="user-profile">
+                    <div class="profile-bg"></div>
                     <img src="message.png" alt="Messages" class="message-icon" onclick="window.location.href='message.html'">
                     <img src="evoprofile.png" alt="Profile" class="profile-photo" onclick="window.location.href='account_page.html'">
                 </div>
@@ -246,4 +258,4 @@
         });
     </script>
 </body>
-                        </html>
+                                                                                 </html>
