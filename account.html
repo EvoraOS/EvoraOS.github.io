@@ -140,17 +140,18 @@
         <a href="#" id="signup-link">Continue here</a>
       </div>
       
-      <button class="login-btn" onclick="login()">Login</button>
+      <button class="login-btn" id="auth-button">Login</button>
       
       <div class="powered-by">
         <span>Powered by </span>&nbsp;<span class="evo-text">Evo</span><span>raOS</span>
       </div>
+      
+      <p id="reset-success" class="success-message">Password reset email sent! Please check your inbox.</p>
     </div>
     
     <div id="user-info" style="display: none;">
       <p id="welcome-msg"></p>
-      <p id="reset-success" class="success-message">Password reset email sent! Please check your inbox.</p>
-      <button class="login-btn" onclick="logout()">Logout</button>
+      <button class="login-btn" id="logout-button">Logout</button>
     </div>
   </div>
   
@@ -158,7 +159,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    // Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyCWahves5Bhz8q_Xe3EIRcw7DxkgQHYQS4",
       authDomain: "evoraos.firebaseapp.com",
@@ -169,37 +170,56 @@
       measurementId: "G-QPJ8KHT5GM"
     };
 
+    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     
     // Flag to track if in signup mode
     let isSignupMode = false;
     
-    // Setup signup link
-    document.getElementById("signup-link").addEventListener("click", function(e) {
+    // Setup event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Auth button (login/signup)
+      document.getElementById("auth-button").addEventListener("click", handleAuth);
+      
+      // Signup link
+      document.getElementById("signup-link").addEventListener("click", toggleSignupMode);
+      
+      // Forgot password link
+      document.getElementById("forgot-password-link").addEventListener("click", handleForgotPassword);
+      
+      // Logout button
+      document.getElementById("logout-button").addEventListener("click", logoutUser);
+      
+      // Check if user is already logged in
+      checkLoggedInStatus();
+    });
+    
+    // Toggle between login and signup modes
+    function toggleSignupMode(e) {
       e.preventDefault();
       isSignupMode = !isSignupMode;
       
-      const loginBtn = document.querySelector(".login-btn");
+      const authButton = document.getElementById("auth-button");
       const linkText = document.getElementById("signup-link");
       const accountText = document.querySelector(".account-text span");
       const pageTitle = document.getElementById("page-title");
       
       if (isSignupMode) {
         pageTitle.textContent = "Create an account";
-        loginBtn.textContent = "Sign Up";
+        authButton.textContent = "Sign Up";
         linkText.textContent = "Login here";
         accountText.textContent = "Already have an account? ";
       } else {
         pageTitle.textContent = "Login";
-        loginBtn.textContent = "Login";
+        authButton.textContent = "Login";
         linkText.textContent = "Continue here";
         accountText.textContent = "You Don't have account ";
       }
-    });
+    }
 
-    // Setup forgot password link
-    document.getElementById("forgot-password-link").addEventListener("click", function(e) {
+    // Handle forgot password functionality
+    function handleForgotPassword(e) {
       e.preventDefault();
       const email = document.getElementById("email").value.trim();
       
@@ -210,14 +230,77 @@
       
       document.getElementById("email-error").style.display = "none";
       
+      // Send password reset email
       sendPasswordResetEmail(auth, email)
         .then(() => {
-          alert("Password reset email sent to " + email + ". Please check your inbox.");
+          // Show success message
+          document.getElementById("reset-success").style.display = "block";
+          setTimeout(() => {
+            document.getElementById("reset-success").style.display = "none";
+          }, 5000);
         })
         .catch((error) => {
           alert("Error: " + error.message);
         });
-    });
+    }
+    
+    // Handle auth (login or signup) based on current mode
+    function handleAuth() {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      
+      if (isSignupMode) {
+        if (!validateInputs(email, password)) {
+          return;
+        }
+        signupUser(email, password);
+      } else {
+        if (!isValidEmail(email)) {
+          document.getElementById("email-error").style.display = "block";
+          return;
+        } else {
+          document.getElementById("email-error").style.display = "none";
+        }
+        loginUser(email, password);
+      }
+    }
+    
+    // Signup user
+    function signupUser(email, password) {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          storeUserInfo(user);
+          redirectToProfile();
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    }
+    
+    // Login user
+    function loginUser(email, password) {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          storeUserInfo(user);
+          redirectToProfile();
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    }
+    
+    // Logout user
+    function logoutUser() {
+      signOut(auth).then(() => {
+        sessionStorage.removeItem('userId');
+        sessionStorage.removeItem('userEmail');
+        toggleUI(false);
+      }).catch((error) => {
+        alert("Error signing out: " + error.message);
+      });
+    }
     
     // Validate email format
     function isValidEmail(email) {
@@ -264,64 +347,7 @@
       window.location.href = "account_page.html";
     }
 
-    window.signup = function () {
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-      
-      if (!validateInputs(email, password)) {
-        return;
-      }
-      
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          storeUserInfo(user);
-          redirectToProfile();
-        })
-        .catch((error) => {
-          alert("Error: " + error.message);
-        });
-    };
-
-    window.login = function () {
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-      
-      if (isSignupMode) {
-        if (!validateInputs(email, password)) {
-          return;
-        }
-        signup();
-        return;
-      } else {
-        // For login, we still validate email format but don't need to check password complexity
-        if (!isValidEmail(email)) {
-          document.getElementById("email-error").style.display = "block";
-          return;
-        } else {
-          document.getElementById("email-error").style.display = "none";
-        }
-      }
-      
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          storeUserInfo(user);
-          redirectToProfile();
-        })
-        .catch((error) => {
-          alert("Error: " + error.message);
-        });
-    };
-
-    window.logout = function () {
-      signOut(auth).then(() => {
-        sessionStorage.removeItem('userId');
-        sessionStorage.removeItem('userEmail');
-        toggleUI(false);
-      });
-    };
-
+    // Toggle UI between logged in and logged out states
     function toggleUI(loggedIn) {
       document.getElementById("auth-box").style.display = loggedIn ? "none" : "block";
       document.getElementById("user-info").style.display = loggedIn ? "block" : "none";
@@ -332,17 +358,12 @@
     }
     
     // Check if user is already logged in
-    window.onload = function() {
+    function checkLoggedInStatus() {
       const userId = sessionStorage.getItem('userId');
       if (userId) {
         toggleUI(true);
       }
-    };
-    
-    // Expose functions to window
-    window.validateInputs = validateInputs;
-    window.isValidEmail = isValidEmail;
-    window.isValidPassword = isValidPassword;
+    }
   </script>
 </body>
-</html>
+  </html>
